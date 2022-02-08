@@ -12,7 +12,7 @@ public class Team {
         number_of_player=11;
         total_score = 0;
         number_of_wickets = 0;
-        number_of_balls = 0;
+        number_of_balls = 10;
 
         for(int i=0;i<11;i++){
             Player p = new Player();
