@@ -21,6 +21,40 @@ public class Player {
         this.age=age;
     }
 
+    void PlayerScoreZero(){
+        this.number_of_balls_played += 1;
+    }
+
+    void PlayerScoreOne(){
+        this.number_of_balls_played += 1;
+        this.score += 1;
+    }
+
+    void PlayerScoreTwo(){
+        this.number_of_balls_played += 1;
+        this.score += 2;
+    }
+
+    void PlayerScoreThree(){
+        this.number_of_balls_played += 1;
+        this.score += 3;
+    }
+
+    void PlayerScoreFour(){
+        this.number_of_balls_played += 1;
+        this.score += 4;
+    }
+
+    void PlayerScoreFive(){
+        this.number_of_balls_played += 1;
+        this.score += 5;
+    }
+
+    void PlayerScoreSix(){
+        this.number_of_balls_played += 1;
+        this.score += 6;
+    }
+
     void settype(String type){
         this.type=type;
     }

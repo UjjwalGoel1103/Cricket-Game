@@ -27,25 +27,26 @@ public class Match {
         if(winner_of_toss==1 )
         {
             if(winner_choice==1){
-                play_inning(1);
-                play_inning(2);
+                play_inning(team1);
+                play_inning(team2);
             }
             else{
-                play_inning(2);
-                play_inning(1);
+                play_inning(team2);
+                play_inning(team1);
             }
         }
         else
         {
             if(winner_choice==1){
-                play_inning(2);
-                play_inning(1);
+                play_inning(team2);
+                play_inning(team1);
             }
             else{
-                play_inning(1);
-                play_inning(2);
+                play_inning(team1);
+                play_inning(team2);
             }
         }
+
     }
 
     void show_final_result(){
@@ -57,15 +58,15 @@ public class Match {
         return winner_of_toss;
     }
 
-    int play_current_ball(){
-        int ball_status = (int)(Math.random()*(6-(-1)+1)+(-1));
-        return ball_status;
+    int CurrentBallStatus(){
+        int BallStatus = (int)(Math.random()*(6-(-1)+1)+(-1));
+        return BallStatus;
     }
 
-    void play_inning(int team_id){
-        if(team_id==1){
-
+    void play_inning(Team BattingTeam){
+        while (BattingTeam.getNumberOfWicketsDown()<10 && BattingTeam.getNumberOfBallsPlayed()<6*number_of_overs){
+            int CurrentBallStatus = CurrentBallStatus();
+            BattingTeam.PlayCurrentBall(CurrentBallStatus);
         }
-        //while (team1.getnumber_of_wickets<10 && number_);
     }
 }

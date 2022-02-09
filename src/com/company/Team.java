@@ -3,28 +3,98 @@ package com.company;
 import java.util.ArrayList;
 
 public class Team {
-    private int number_of_player;
-    private int total_score;
-    private int number_of_wickets;
-    private int number_of_balls;
-    private ArrayList<Player> team_players = new ArrayList<>(11);
+    private int NumberOfPlayer;
+    private int TotalScore;
+    private int NumberOfWicketsDown;
+    private int NumberOfBallsPlayed;
+    private ArrayList<Player> TeamPlayers = new ArrayList<>(11);
     Team(){
-        number_of_player=11;
-        total_score = 0;
-        number_of_wickets = 0;
-        number_of_balls = 10;
+        NumberOfPlayer=11;
+        TotalScore = 0;
+        NumberOfWicketsDown = 0;
+        NumberOfBallsPlayed = 10;
 
-        for(int i=0;i<number_of_player;i++){
+        for(int i=0;i<NumberOfPlayer;i++){
             Player p = new Player();
-            team_players.add(p);
+            TeamPlayers.add(p);
         }
 
-        set_player_name();
-        set_player_age();
-        set_player_type();
+        //set_player_name();
+        //set_player_age();
+        //set_player_type();
+
+    }
+
+    void setNumberOfPlayer(int NumberOfPlayer){
+        this.NumberOfPlayer=NumberOfPlayer;
+    }
+
+    int getNumberOfPlayer(){
+        return this.NumberOfPlayer;
+    }
+
+    void setTotalScore(int TotalScore){
+        this.TotalScore=TotalScore;
+    }
+
+    int getTotalScore(){
+        return this.TotalScore;
+    }
+
+    void setNumberOfWicketsDown(int NumberOfWicketsDown){
+        this.NumberOfWicketsDown=NumberOfWicketsDown;
+    }
+
+    int getNumberOfWicketsDown(){
+        return this.NumberOfWicketsDown;
+    }
+
+    void setNumberOfBallsPlayed(int NumberOfBallsPlayed){
+        this.NumberOfBallsPlayed=NumberOfBallsPlayed;
+    }
+
+    int getNumberOfBallsPlayed(){
+        return this.NumberOfBallsPlayed;
+    }
+
+    void PlayCurrentBall(int CurrentBallStatus){
+        this.NumberOfBallsPlayed+=1;
+        if(CurrentBallStatus==-1){
+            this.NumberOfWicketsDown+=1;
+        }
+        else if(CurrentBallStatus==0){
+            return ;
+        }
+        else if(CurrentBallStatus==1){
+            this.TotalScore += 1;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreOne();
+        }
+        else if(CurrentBallStatus==2){
+            this.TotalScore += 2;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreTwo();
+        }
+        else if(CurrentBallStatus==3){
+            this.TotalScore += 3;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreThree();
+        }
+        else if(CurrentBallStatus==4){
+            this.TotalScore += 4;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreFour();
+        }
+        else if(CurrentBallStatus==5){
+            this.TotalScore += 5;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreFive();
+        }
+        else if(CurrentBallStatus==6){
+            this.TotalScore += 6;
+            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreSix();
+        }
+    }
 
 
-    void set_player_name(){
+
+
+   /* void set_player_name(){
         team_players.get(0).setname("Player_1");
         team_players.get(1).setname("Player_2");
         team_players.get(2).setname("Player_3");
@@ -64,5 +134,5 @@ public class Team {
         team_players.get(8).settype("Bowler");
         team_players.get(9).settype("Bowler");
         team_players.get(10).settype("Bowler");
-    }
+    }*/
 }
