@@ -23,14 +23,6 @@ public class Team {
         set_player_age();
         set_player_type();
 
-        /*String name;
-    int age;
-    String type;
-    int score;
-    int wickets_taken;
-    int number_of_balls_played;*/
-    }
-
 
     void set_player_name(){
         team_players.get(0).setname("Player_1");
