@@ -1,33 +1,55 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Match {
     int number_of_overs;
     Team team1 = new Team();
     Team team2 = new Team();
 
+    Scanner sc = new Scanner(System.in);
+
     Match(){
-        System.out.println("DONe");
+        System.out.println("Starting A New Match");
+        System.out.println("Which Format Match you want : T20 / 50-50 ");
+        String type = sc.nextLine();
+        if(type=="T20")
+            number_of_overs = 20;
+        else
+            number_of_overs = 50;
     }
 
     void start_match(){
 
         int winner_of_toss = toss();
-        if(winner_of_toss==1)
+        int winner_choice = 1;
+        if(winner_of_toss==1 )
         {
-            play_inning(1);
-            play_inning(2);
+            if(winner_choice==1){
+                play_inning(1);
+                play_inning(2);
+            }
+            else{
+                play_inning(2);
+                play_inning(1);
+            }
         }
         else
         {
-            play_inning(2);
-            play_inning(1);
+            if(winner_choice==1){
+                play_inning(2);
+                play_inning(1);
+            }
+            else{
+                play_inning(1);
+                play_inning(2);
+            }
         }
     }
 
     void show_final_result(){
-        System.out.println("result");
+        System.out.println("in show final result");
     }
 
     int toss(){
@@ -41,6 +63,9 @@ public class Match {
     }
 
     void play_inning(int team_id){
+        if(team_id==1){
 
+        }
+        //while (team1.getnumber_of_wickets<10 && number_);
     }
 }
