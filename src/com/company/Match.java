@@ -9,7 +9,6 @@ public class Match {
     Team team2 = new Team();
 
     Scanner sc = new Scanner(System.in);
-
     Match(){
         System.out.println("Starting A New Match");
         System.out.println("Which Format Match you want : T20 / 50-50 ");
