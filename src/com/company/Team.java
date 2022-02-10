@@ -3,26 +3,37 @@ package com.company;
 import java.util.ArrayList;
 
 public class Team {
+    public static final int ConstantPlayersInTeam = 11;
+    private String TeamName;
     private int NumberOfPlayer;
     private int TotalScore;
     private int NumberOfWicketsDown;
     private int NumberOfBallsPlayed;
-    private ArrayList<Player> TeamPlayers = new ArrayList<>(11);
+    private ArrayList<Player> PlayersOfATeam = new ArrayList<>(ConstantPlayersInTeam);
+
     Team(){
-        NumberOfPlayer=11;
+        NumberOfPlayer= ConstantPlayersInTeam;
         TotalScore = 0;
         NumberOfWicketsDown = 0;
-        NumberOfBallsPlayed = 10;
+        NumberOfBallsPlayed = 0;
 
         for(int i=0;i<NumberOfPlayer;i++){
             Player p = new Player();
-            TeamPlayers.add(p);
+            PlayersOfATeam.add(p);
         }
 
         //set_player_name();
         //set_player_age();
         //set_player_type();
 
+    }
+
+    void setTeamName(String TeamName){
+        this.TeamName=TeamName;
+    }
+
+    String getTeamName(){
+        return this.TeamName;
     }
 
     void setNumberOfPlayer(int NumberOfPlayer){
@@ -67,27 +78,27 @@ public class Team {
         }
         else if(CurrentBallStatus==1){
             this.TotalScore += 1;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreOne();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreOne();
         }
         else if(CurrentBallStatus==2){
             this.TotalScore += 2;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreTwo();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreTwo();
         }
         else if(CurrentBallStatus==3){
             this.TotalScore += 3;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreThree();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreThree();
         }
         else if(CurrentBallStatus==4){
             this.TotalScore += 4;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreFour();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreFour();
         }
         else if(CurrentBallStatus==5){
             this.TotalScore += 5;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreFive();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreFive();
         }
         else if(CurrentBallStatus==6){
             this.TotalScore += 6;
-            TeamPlayers.get(NumberOfWicketsDown).PlayerScoreSix();
+            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreSix();
         }
     }
 

@@ -2,11 +2,17 @@ package com.company;
 
 public class Player {
     private String name;
-    private int age;
-    private String type;
+    private int Age;
     private int score;
     private int wickets_taken;
     private int number_of_balls_played;
+    enum PlayerType {
+        Batsmen,
+        WicketKeeper,
+        Bowler,
+        AllRounder
+    }
+
     Player(){
         score=0;
         wickets_taken=0;
@@ -17,8 +23,8 @@ public class Player {
         this.name=name;
     }
 
-    void setage(int age){
-        this.age=age;
+    void setAge(int Age){
+        this.Age=Age;
     }
 
     void PlayerScoreZero(){
@@ -56,7 +62,7 @@ public class Player {
     }
 
     void settype(String type){
-        this.type=type;
+      //  this.type=type;
     }
 
     void setscore(int score){
@@ -75,12 +81,13 @@ public class Player {
         return this.name;
     }
 
-    int getage(){
-        return this.age;
+    int getAge(){
+        return this.Age;
     }
 
     String gettype(){
-        return this.type;
+   //     return this.type;
+        return "test";
     }
 
     int getscore(){
@@ -94,9 +101,6 @@ public class Player {
     int getNumber_of_balls_played(){
         return this.number_of_balls_played;
     }
-
-
-
 
 
 
