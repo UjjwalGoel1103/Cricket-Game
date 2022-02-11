@@ -3,12 +3,18 @@ package com.company;
 import com.company.enums.MatchType;
 
 public class InputValidator {
-    private boolean validateMatchType(MatchType matchTypeByUser){
-        if(matchTypeByUser!=MatchType.T20 && matchTypeByUser!=MatchType.FIVE_OVER && matchTypeByUser!=MatchType.FIFTY_OVER ){
-            return false;
+    public static boolean validateMatchType(String matchTypeByUser){
+        if(matchTypeByUser.equals("T20")){
+            return true;
+        }
+        else if(matchTypeByUser.equals("FIVE_OVER")){
+            return true;
+        }
+        else if(matchTypeByUser.equals("FIFTY_OVER") ){
+            return true;
         }
         else{
-            return true;
+            return false;
         }
     }
 }

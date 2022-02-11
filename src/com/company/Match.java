@@ -5,6 +5,8 @@ import com.company.enums.MatchType;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static com.company.InputValidator.validateMatchType;
+
 public class Match {
     int numberOfOvers;
     Team team1 = new Team();
@@ -16,18 +18,19 @@ public class Match {
         Scanner sc = new Scanner(System.in);
         System.out.println("Starting A New Match");
         System.out.println("Which Format Match you want : FIVE_OVER / T20 / FIFTY_OVER");
+        MatchType applyingMatchType;
         String matchTypeByUser = sc.next();
-        // convert String to enum
-        MatchType applyingMatchType = MatchType.valueOf(matchTypeByUser);
-        if(MatchType.FIVE_OVER==applyingMatchType){
-            numberOfOvers=5;
+        String defaultMatchType = "FIVE_OVER";
+        boolean validateInput = validateMatchType(matchTypeByUser);
+        if(!validateInput){
+            System.out.println("You Provide inappropriate input, So by default making match of 5 Overs");
+            applyingMatchType = MatchType.valueOf(defaultMatchType);
         }
-        else if(MatchType.T20==applyingMatchType){
-            numberOfOvers=20;
+        else{
+            // convert String to enum
+            applyingMatchType = MatchType.valueOf(matchTypeByUser);
         }
-        else if(MatchType.FIFTY_OVER==applyingMatchType) {
-            numberOfOvers = 50;
-        }
+        numberOfOvers = applyingMatchType.getOverInThisType();
         startMatch();
     }
 
@@ -38,7 +41,16 @@ public class Match {
     }
 
     private void performInningSchedule(int winnerOfToss){
-        int winnerChoice = 1;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Would You like to Batting or Bowling");
+        String battingOrBowlingChoice = sc.nextLine();
+        int winnerChoice;
+        if(battingOrBowlingChoice.equals("Batting")){
+            winnerChoice = 1;
+        }
+        else{
+            winnerChoice = 0;
+        }
         if(winnerOfToss==1 )
         {
             if(winnerChoice==1){
@@ -69,9 +81,7 @@ public class Match {
                 System.out.println("FIRST INNING START");
                 playInning(team2);
                 System.out.println();
-                System.out.println();
                 System.out.println("SECOND INNING START");
-                System.out.println();
                 System.out.println();
                 playInning(team1);
             }
@@ -79,9 +89,7 @@ public class Match {
                 System.out.println("FIRST INNING START");
                 playInning(team1);
                 System.out.println();
-                System.out.println();
                 System.out.println("SECOND INNING START");
-                System.out.println();
                 System.out.println();
                 playInning(team2);
             }
