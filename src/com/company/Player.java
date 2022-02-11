@@ -2,62 +2,56 @@ package com.company;
 
 public class Player {
     private String name;
-    private int Age;
+    private int age;
     private int score;
-    private int wickets_taken;
-    private int number_of_balls_played;
-    enum PlayerType {
-        Batsmen,
-        WicketKeeper,
-        Bowler,
-        AllRounder
-    }
+    private int wicketsTaken;
+    private int numberOfBallsPlayed;
 
     Player(){
         score=0;
-        wickets_taken=0;
-        number_of_balls_played=0;
+        wicketsTaken=0;
+        numberOfBallsPlayed=0;
     }
 
     void setname(String name){
         this.name=name;
     }
 
-    void setAge(int Age){
-        this.Age=Age;
+    void setAge(int age){
+        this.age=age;
     }
 
-    void PlayerScoreZero(){
-        this.number_of_balls_played += 1;
+    void playerScoreZero(){
+        this.numberOfBallsPlayed += 1;
     }
 
-    void PlayerScoreOne(){
-        this.number_of_balls_played += 1;
+    void playerScoreOne(){
+        this.numberOfBallsPlayed += 1;
         this.score += 1;
     }
 
-    void PlayerScoreTwo(){
-        this.number_of_balls_played += 1;
+    void playerScoreTwo(){
+        this.numberOfBallsPlayed += 1;
         this.score += 2;
     }
 
-    void PlayerScoreThree(){
-        this.number_of_balls_played += 1;
+    void playerScoreThree(){
+        this.numberOfBallsPlayed += 1;
         this.score += 3;
     }
 
-    void PlayerScoreFour(){
-        this.number_of_balls_played += 1;
+    void playerScoreFour(){
+        this.numberOfBallsPlayed += 1;
         this.score += 4;
     }
 
-    void PlayerScoreFive(){
-        this.number_of_balls_played += 1;
+    void playerScoreFive(){
+        this.numberOfBallsPlayed += 1;
         this.score += 5;
     }
 
-    void PlayerScoreSix(){
-        this.number_of_balls_played += 1;
+    void playerScoreSix(){
+        this.numberOfBallsPlayed += 1;
         this.score += 6;
     }
 
@@ -70,11 +64,11 @@ public class Player {
     }
 
     void setwickets_taken(int wickets_taken){
-        this.wickets_taken=wickets_taken;
+        this.wicketsTaken=wickets_taken;
     }
 
-    void setNumber_of_balls_played(int number_of_balls_played){
-        this.number_of_balls_played=number_of_balls_played;
+    void setNumber_of_balls_played(int numberOfBallsPlayed){
+        this.numberOfBallsPlayed=numberOfBallsPlayed;
     }
 
     String getname(){
@@ -82,7 +76,7 @@ public class Player {
     }
 
     int getAge(){
-        return this.Age;
+        return this.age;
     }
 
     String gettype(){
@@ -90,16 +84,16 @@ public class Player {
         return "test";
     }
 
-    int getscore(){
+    int getScore(){
         return this.score;
     }
 
-    int getwickets_taken(){
-        return this.wickets_taken;
+    int getWicketsTaken(){
+        return this.wicketsTaken;
     }
 
-    int getNumber_of_balls_played(){
-        return this.number_of_balls_played;
+    int getNumberOfBallsPlayed(){
+        return this.numberOfBallsPlayed;
     }
 
 

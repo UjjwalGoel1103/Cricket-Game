@@ -3,23 +3,23 @@ package com.company;
 import java.util.ArrayList;
 
 public class Team {
-    public static final int ConstantPlayersInTeam = 11;
-    private String TeamName;
-    private int NumberOfPlayer;
-    private int TotalScore;
-    private int NumberOfWicketsDown;
-    private int NumberOfBallsPlayed;
-    private ArrayList<Player> PlayersOfATeam = new ArrayList<>(ConstantPlayersInTeam);
+    public static final int constantPlayersInTeam = 11;
+    private String teamName;
+    private int numberOfPlayer;
+    private int totalScore;
+    private int numberOfWicketsDown;
+    private int numberOfBallsPlayed;
+    private ArrayList<Player> playersOfATeam = new ArrayList<>(constantPlayersInTeam);
 
     Team(){
-        NumberOfPlayer= ConstantPlayersInTeam;
-        TotalScore = 0;
-        NumberOfWicketsDown = 0;
-        NumberOfBallsPlayed = 0;
+        numberOfPlayer= constantPlayersInTeam;
+        totalScore = 0;
+        numberOfWicketsDown = 0;
+        numberOfBallsPlayed = 0;
 
-        for(int i=0;i<NumberOfPlayer;i++){
+        for(int i=0;i<numberOfPlayer;i++){
             Player p = new Player();
-            PlayersOfATeam.add(p);
+            playersOfATeam.add(p);
         }
 
         //set_player_name();
@@ -28,77 +28,77 @@ public class Team {
 
     }
 
-    void setTeamName(String TeamName){
-        this.TeamName=TeamName;
+    void setTeamName(String teamName){
+        this.teamName=teamName;
     }
 
     String getTeamName(){
-        return this.TeamName;
+        return this.teamName;
     }
 
-    void setNumberOfPlayer(int NumberOfPlayer){
-        this.NumberOfPlayer=NumberOfPlayer;
+    void setNumberOfPlayer(int numberOfPlayer){
+        this.numberOfPlayer=numberOfPlayer;
     }
 
     int getNumberOfPlayer(){
-        return this.NumberOfPlayer;
+        return this.numberOfPlayer;
     }
 
-    void setTotalScore(int TotalScore){
-        this.TotalScore=TotalScore;
+    void setTotalScore(int totalScore){
+        this.totalScore=totalScore;
     }
 
     int getTotalScore(){
-        return this.TotalScore;
+        return this.totalScore;
     }
 
-    void setNumberOfWicketsDown(int NumberOfWicketsDown){
-        this.NumberOfWicketsDown=NumberOfWicketsDown;
+    void setNumberOfWicketsDown(int numberOfWicketsDown){
+        this.numberOfWicketsDown=numberOfWicketsDown;
     }
 
     int getNumberOfWicketsDown(){
-        return this.NumberOfWicketsDown;
+        return this.numberOfWicketsDown;
     }
 
-    void setNumberOfBallsPlayed(int NumberOfBallsPlayed){
-        this.NumberOfBallsPlayed=NumberOfBallsPlayed;
+    void setNumberOfBallsPlayed(int numberOfBallsPlayed){
+        this.numberOfBallsPlayed=numberOfBallsPlayed;
     }
 
     int getNumberOfBallsPlayed(){
-        return this.NumberOfBallsPlayed;
+        return this.numberOfBallsPlayed;
     }
 
-    void PlayCurrentBall(int CurrentBallStatus){
-        this.NumberOfBallsPlayed+=1;
-        if(CurrentBallStatus==-1){
-            this.NumberOfWicketsDown+=1;
+    void playCurrentBall(int currentBallStatus){
+        this.numberOfBallsPlayed+=1;
+        if(currentBallStatus==-1){
+            this.numberOfWicketsDown+=1;
         }
-        else if(CurrentBallStatus==0){
+        else if(currentBallStatus==0){
             return ;
         }
-        else if(CurrentBallStatus==1){
-            this.TotalScore += 1;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreOne();
+        else if(currentBallStatus==1){
+            this.totalScore += 1;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreOne();
         }
-        else if(CurrentBallStatus==2){
-            this.TotalScore += 2;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreTwo();
+        else if(currentBallStatus==2){
+            this.totalScore += 2;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreTwo();
         }
-        else if(CurrentBallStatus==3){
-            this.TotalScore += 3;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreThree();
+        else if(currentBallStatus==3){
+            this.totalScore += 3;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreThree();
         }
-        else if(CurrentBallStatus==4){
-            this.TotalScore += 4;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreFour();
+        else if(currentBallStatus==4){
+            this.totalScore += 4;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreFour();
         }
-        else if(CurrentBallStatus==5){
-            this.TotalScore += 5;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreFive();
+        else if(currentBallStatus==5){
+            this.totalScore += 5;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreFive();
         }
-        else if(CurrentBallStatus==6){
-            this.TotalScore += 6;
-            PlayersOfATeam.get(NumberOfWicketsDown).PlayerScoreSix();
+        else if(currentBallStatus==6){
+            this.totalScore += 6;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreSix();
         }
     }
 

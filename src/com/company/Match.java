@@ -1,96 +1,134 @@
 package com.company;
 
+import com.company.enums.MatchType;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Match {
-    int NumberOfOvers;
-    Team Team1 = new Team();
-    Team Team2 = new Team();
+    int numberOfOvers;
+    Team team1 = new Team();
+    Team team2 = new Team();
 
-    enum MatchType {
-        FiveOver,
-        T20,
-        FiftyOver
-    }
-
-    Match(String TeamName1, String TeamName2){
-        Team1.setTeamName(TeamName1);
-        Team2.setTeamName(TeamName2);
+    Match(String teamName1, String teamName2){
+        team1.setTeamName(teamName1);
+        team2.setTeamName(teamName2);
         Scanner sc = new Scanner(System.in);
         System.out.println("Starting A New Match");
-        System.out.println("Which Format Match you want : FiveOver / T20 / FiftyOver");
-        String MatchTypeByUser = sc.next();
+        System.out.println("Which Format Match you want : FIVE_OVER / T20 / FIFTY_OVER");
+        String matchTypeByUser = sc.next();
         // convert String to enum
-        MatchType ApplyingMatchType = MatchType.valueOf(MatchTypeByUser.toUpperCase());
-        if(MatchType.FiveOver==ApplyingMatchType){
-            NumberOfOvers=5;
+        MatchType applyingMatchType = MatchType.valueOf(matchTypeByUser);
+        if(MatchType.FIVE_OVER==applyingMatchType){
+            numberOfOvers=5;
         }
-        else if(MatchType.T20==ApplyingMatchType){
-            NumberOfOvers=20;
+        else if(MatchType.T20==applyingMatchType){
+            numberOfOvers=20;
         }
-        else if(MatchType.FiftyOver==ApplyingMatchType) {
-            NumberOfOvers = 50;
+        else if(MatchType.FIFTY_OVER==applyingMatchType) {
+            numberOfOvers = 50;
         }
-        StartMatch();
+        startMatch();
     }
 
-    private void StartMatch(){
-        int WinnerOfToss = PerformToss();
-        PerformInningSchedule(WinnerOfToss);
-        ShowFinalResult();
+    private void startMatch(){
+        int winnerOfToss = performToss();
+        performInningSchedule(winnerOfToss);
+        showFinalResult();
     }
 
-    private void PerformInningSchedule(int WinnerOfToss){
-        int WinnerChoice = 1;
-        if(WinnerOfToss==1 )
+    private void performInningSchedule(int winnerOfToss){
+        int winnerChoice = 1;
+        if(winnerOfToss==1 )
         {
-            if(WinnerChoice==1){
-                PlayInning(Team1);
-                PlayInning(Team2);
+            if(winnerChoice==1){
+                System.out.println("FIRST INNING START");
+                playInning(team1);
+                System.out.println();
+                System.out.println();
+                System.out.println("SECOND INNING START");
+                System.out.println();
+                System.out.println();
+
+                playInning(team2);
             }
             else{
-                PlayInning(Team2);
-                PlayInning(Team1);
+                System.out.println("FIRST INNING START");
+                playInning(team2);
+                System.out.println();
+                System.out.println();
+                System.out.println("SECOND INNING START");
+                System.out.println();
+                System.out.println();
+                playInning(team1);
             }
         }
         else
         {
-            if(WinnerChoice==1){
-                PlayInning(Team2);
-                PlayInning(Team1);
+            if(winnerChoice==1){
+                System.out.println("FIRST INNING START");
+                playInning(team2);
+                System.out.println();
+                System.out.println();
+                System.out.println("SECOND INNING START");
+                System.out.println();
+                System.out.println();
+                playInning(team1);
             }
             else{
-                PlayInning(Team1);
-                PlayInning(Team2);
+                System.out.println("FIRST INNING START");
+                playInning(team1);
+                System.out.println();
+                System.out.println();
+                System.out.println("SECOND INNING START");
+                System.out.println();
+                System.out.println();
+                playInning(team2);
             }
         }
     }
 
-    void ShowFinalResult(){
-        System.out.println("in show final result");
+    void showFinalResult(){
+        System.out.println();
+        System.out.println("Final result");
     }
 
-    int PerformToss(){
-        int WinnerOfToss = RandomNumberBetweenLtoR(1,2);
-        return WinnerOfToss;
+    int performToss(){
+        int winnerOfToss = randomNumberBetweenLtoR(1,2);
+        return winnerOfToss;
     }
 
-    int CurrentBallStatus(){
-        int BallStatus = RandomNumberBetweenLtoR(-1,6);
-        return BallStatus;
+    int currentBallStatus(){
+        int ballStatus = randomNumberBetweenLtoR(-1,6);
+        return ballStatus;
     }
 
-    void PlayInning(Team BattingTeam){
-        while (BattingTeam.getNumberOfWicketsDown()<10 && BattingTeam.getNumberOfBallsPlayed()<6*NumberOfOvers){
-            int CurrentBallStatus = CurrentBallStatus();
-            BattingTeam.PlayCurrentBall(CurrentBallStatus);
+    void playInning(Team battingTeam){
+        while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*numberOfOvers){
+            int currentBallStatus = currentBallStatus();
+            if(battingTeam.getNumberOfBallsPlayed()%6==0 )
+                System.out.println();
+            if(battingTeam.getNumberOfBallsPlayed()==0 || battingTeam.getNumberOfBallsPlayed()%6==0 )
+                System.out.println(battingTeam.getNumberOfBallsPlayed()/6+1 + " Over");
+            showCurrentBallStatus(currentBallStatus);
+            battingTeam.playCurrentBall(currentBallStatus);
         }
     }
 
-    int RandomNumberBetweenLtoR(int Min, int Max){
-        int RandomNumber = (int)(Math.random()*(Max-Min+1)+Min);
-        return RandomNumber;
+    void showCurrentBallStatus(int currentBallStatus){
+        if(currentBallStatus==-1){
+            System.out.print("W ");
+        }
+        else{
+            System.out.print(currentBallStatus+ " ");
+        }
+    }
+
+    int randomNumberBetweenLtoR(int min, int max){
+        min--;
+        max++;
+        int randomNumber = (int)(Math.random()*(max-min)+min);
+        return randomNumber;
     }
 }
 

@@ -4,6 +4,6 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Match NewMmatch = new Match("India", "Australia");
+        Match newMatch = new Match("India", "Australia");
     }
 }
