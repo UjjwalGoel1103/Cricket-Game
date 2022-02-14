@@ -11,6 +11,7 @@ public class Match {
     int numberOfOvers;
     Team team1 = new Team();
     Team team2 = new Team();
+    ScoreBoard scoreBoard = new ScoreBoard();
 
     Match(String teamName1, String teamName2){
         team1.setTeamName(teamName1);
@@ -37,7 +38,10 @@ public class Match {
     private void startMatch(){
         int winnerOfToss = performToss();
         performInningSchedule(winnerOfToss);
-        showFinalResult();
+
+        //Scoreboard With different Functionalities
+
+        scoreBoard.showFinalResult();
     }
 
     private void performInningSchedule(int winnerOfToss){
@@ -94,11 +98,6 @@ public class Match {
                 playInning(team2);
             }
         }
-    }
-
-    void showFinalResult(){
-        System.out.println();
-        System.out.println("Final result");
     }
 
     int performToss(){

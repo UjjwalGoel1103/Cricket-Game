@@ -3,16 +3,16 @@ package com.company;
 import java.util.ArrayList;
 
 public class Team {
-    public static final int constantPlayersInTeam = 11;
+
     private String teamName;
     private int numberOfPlayer;
     private int totalScore;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
-    private ArrayList<Player> playersOfATeam = new ArrayList<>(constantPlayersInTeam);
+    private ArrayList<Player> playersOfATeam = new ArrayList<>(Constants.NO_OF_PLAYER);
 
-    Team(){
-        numberOfPlayer= constantPlayersInTeam;
+    Team() {
+        numberOfPlayer = Constants.NO_OF_PLAYER;
         totalScore = 0;
         numberOfWicketsDown = 0;
         numberOfBallsPlayed = 0;

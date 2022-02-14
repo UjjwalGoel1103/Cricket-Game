@@ -11,6 +11,6 @@ public enum MatchType {
     }
 
     public int getOverInThisType(){
-        return this.numberOfOver;
+        return numberOfOver;
     }
 }
