@@ -6,19 +6,12 @@ public class Player {
     private int score;
     private int wicketsTaken;
     private int numberOfBallsPlayed;
+    Enum playerType;
 
     Player(){
         score=0;
         wicketsTaken=0;
         numberOfBallsPlayed=0;
-    }
-
-    void setname(String name){
-        this.name=name;
-    }
-
-    void setAge(int age){
-        this.age=age;
     }
 
     void playerScoreZero(){
@@ -55,47 +48,53 @@ public class Player {
         this.score += 6;
     }
 
-    void settype(String type){
-      //  this.type=type;
+    void setName(String name){
+        this.name=name;
     }
 
-    void setscore(int score){
-        this.score=score;
-    }
-
-    void setwickets_taken(int wickets_taken){
-        this.wicketsTaken=wickets_taken;
-    }
-
-    void setNumber_of_balls_played(int numberOfBallsPlayed){
-        this.numberOfBallsPlayed=numberOfBallsPlayed;
-    }
-
-    String getname(){
+    String getName(){
         return this.name;
+    }
+
+    void setAge(int age){
+        this.age=age;
     }
 
     int getAge(){
         return this.age;
     }
 
-    String gettype(){
-   //     return this.type;
-        return "test";
+    void setScore(int score){
+        this.score=score;
     }
 
     int getScore(){
         return this.score;
     }
 
+    void setWicketsTaken(int wicketsTaken){
+        this.wicketsTaken=wicketsTaken;
+    }
+
     int getWicketsTaken(){
         return this.wicketsTaken;
+    }
+
+    void setNumberOfBallsPlayed(int numberOfBallsPlayed){
+        this.numberOfBallsPlayed=numberOfBallsPlayed;
     }
 
     int getNumberOfBallsPlayed(){
         return this.numberOfBallsPlayed;
     }
 
+    void setPlayerType(Enum playerType){
+        this.playerType=playerType;
+    }
+
+    Enum getPlayerType(){
+        return this.playerType;
+    }
 
 
 }
