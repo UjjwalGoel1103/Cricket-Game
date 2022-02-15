@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.enums.MatchType;
+import com.company.enums.PlayerType;
+
 import java.util.ArrayList;
 
 public class Team {
@@ -22,10 +25,7 @@ public class Team {
             playersOfATeam.add(p);
         }
 
-        //set_player_name();
-        //set_player_age();
-        //set_player_type();
-
+        setPlayersDefaultInfo();
     }
 
     void setTeamName(String teamName){
@@ -68,13 +68,35 @@ public class Team {
         return this.numberOfBallsPlayed;
     }
 
+    private void setIthPlayerOfATeam(int playerId, String name, int age, PlayerType playerType){
+        playersOfATeam.get(playerId).setName(name);
+        playersOfATeam.get(playerId).setAge(age);
+        playersOfATeam.get(playerId).setPlayerType(playerType);
+    }
+
+    String getIthPlayerName(int playerID){
+        return playersOfATeam.get(playerID).getName();
+    }
+
+    int getIthPlayerAge(int playerID){
+        return playersOfATeam.get(playerID).getAge();
+    }
+
+    int getIthPlayerScore(int playerID){
+        return playersOfATeam.get(playerID).getScore();
+    }
+
+    int getIthPlayerBalls(int playerID){
+        return playersOfATeam.get(playerID).getNumberOfBallsPlayed();
+    }
+
     void playCurrentBall(int currentBallStatus){
         this.numberOfBallsPlayed+=1;
         if(currentBallStatus==-1){
             this.numberOfWicketsDown+=1;
         }
         else if(currentBallStatus==0){
-            return ;
+            playersOfATeam.get(numberOfWicketsDown).playerScoreZero();;
         }
         else if(currentBallStatus==1){
             this.totalScore += 1;
@@ -102,48 +124,18 @@ public class Team {
         }
     }
 
-
-
-
-   /* void set_player_name(){
-        team_players.get(0).setname("Player_1");
-        team_players.get(1).setname("Player_2");
-        team_players.get(2).setname("Player_3");
-        team_players.get(3).setname("Player_4");
-        team_players.get(4).setname("Player_5");
-        team_players.get(5).setname("Player_6");
-        team_players.get(6).setname("Player_7");
-        team_players.get(7).setname("Player_8");
-        team_players.get(8).setname("Player_9");
-        team_players.get(9).setname("Player_10");
-        team_players.get(10).setname("Player_11");
+    private void setPlayersDefaultInfo(){
+        setIthPlayerOfATeam(0,"Sachin Tendulakr ", 25, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(1,"Virendar Sehwag  ", 20, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(2,"Virat Kohli      ", 22, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(3,"Rohit Sharma     ", 30, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(4,"MS Dhoni         ", 25, PlayerType.WICKET_KEEPER);
+        setIthPlayerOfATeam(5,"Ravindra Jadeja  ", 21, PlayerType.ALL_ROUNDER);
+        setIthPlayerOfATeam(6,"Yuvraj Singh     ", 28, PlayerType.ALL_ROUNDER);
+        setIthPlayerOfATeam(7,"Harbhajan Singh  ", 29, PlayerType.BOWLER);
+        setIthPlayerOfATeam(8,"Jasprit Bumrah   ", 20, PlayerType.BOWLER);
+        setIthPlayerOfATeam(9,"Ravindra Ashwin  ", 27, PlayerType.BOWLER);
+        setIthPlayerOfATeam(10,"Mohomadd Shami  ", 29, PlayerType.BOWLER);
     }
 
-    void set_player_age(){
-        team_players.get(0).setage(19);
-        team_players.get(1).setage(23);
-        team_players.get(2).setage(22);
-        team_players.get(3).setage(11);
-        team_players.get(4).setage(12);
-        team_players.get(5).setage(12);
-        team_players.get(6).setage(16);
-        team_players.get(7).setage(26);
-        team_players.get(8).setage(29);
-        team_players.get(9).setage(12);
-        team_players.get(10).setage(19);
-    }
-
-    void set_player_type(){
-        team_players.get(0).settype("Batsmen");
-        team_players.get(1).settype("Batsmen");
-        team_players.get(2).settype("Batsmen");
-        team_players.get(3).settype("Batsmen");
-        team_players.get(4).settype("All-rounder");
-        team_players.get(5).settype("All-rounder");
-        team_players.get(6).settype("All-rounder");
-        team_players.get(7).settype("Bolwer");
-        team_players.get(8).settype("Bowler");
-        team_players.get(9).settype("Bowler");
-        team_players.get(10).settype("Bowler");
-    }*/
 }

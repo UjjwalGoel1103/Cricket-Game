@@ -1,17 +1,17 @@
 package com.company;
 
 import com.company.enums.MatchType;
+import com.company.util.MatchUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.company.InputValidator.validateMatchType;
+import static com.company.validator.InputValidator.validateMatchType;
 
 public class Match {
     int numberOfOvers;
     Team team1 = new Team();
     Team team2 = new Team();
-    ScoreBoard scoreBoard = new ScoreBoard();
 
     Match(String teamName1, String teamName2){
         team1.setTeamName(teamName1);
@@ -38,9 +38,10 @@ public class Match {
     private void startMatch(){
         int winnerOfToss = performToss();
         performInningSchedule(winnerOfToss);
-
         //Scoreboard With different Functionalities
-
+        ScoreBoard scoreBoard = new ScoreBoard(team1, team2);
+        scoreBoard.showTeam1ScoreCard();
+        scoreBoard.showTeam2ScoreCard();
         scoreBoard.showFinalResult();
     }
 
@@ -55,58 +56,28 @@ public class Match {
         else{
             winnerChoice = 0;
         }
-        if(winnerOfToss==1 )
+        if( (winnerOfToss==1 && winnerChoice==1) || (winnerOfToss==0 && winnerChoice==0) )
         {
-            if(winnerChoice==1){
-                System.out.println("FIRST INNING START");
-                playInning(team1);
-                System.out.println();
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                System.out.println();
-
-                playInning(team2);
-            }
-            else{
-                System.out.println("FIRST INNING START");
-                playInning(team2);
-                System.out.println();
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                System.out.println();
-                playInning(team1);
-            }
+            System.out.println("\n" + "FIRST INNING START");
+            playInning(team1);
+            System.out.println("\n"+ "\n" + "SECOND INNING START"  );
+            playInning(team2);
         }
-        else
-        {
-            if(winnerChoice==1){
-                System.out.println("FIRST INNING START");
-                playInning(team2);
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                playInning(team1);
-            }
-            else{
-                System.out.println("FIRST INNING START");
-                playInning(team1);
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                playInning(team2);
-            }
+        else{
+            System.out.println("\n" + "FIRST INNING START");
+            playInning(team2);
+            System.out.println("\n" + "\n" + "SECOND INNING START"  );
+            playInning(team1);
         }
     }
 
     int performToss(){
-        int winnerOfToss = randomNumberBetweenLtoR(1,2);
+        int winnerOfToss = MatchUtils.randomNumberBetweenLtoR(1,2);
         return winnerOfToss;
     }
 
     int currentBallStatus(){
-        int ballStatus = randomNumberBetweenLtoR(-1,6);
+        int ballStatus = MatchUtils.randomNumberBetweenLtoR(-1,6);
         return ballStatus;
     }
 
@@ -129,13 +100,6 @@ public class Match {
         else{
             System.out.print(currentBallStatus+ " ");
         }
-    }
-
-    int randomNumberBetweenLtoR(int min, int max){
-        min--;
-        max++;
-        int randomNumber = (int)(Math.random()*(max-min)+min);
-        return randomNumber;
     }
 }
 
