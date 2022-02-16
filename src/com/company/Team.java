@@ -28,6 +28,14 @@ public class Team {
         setPlayersDefaultInfo();
     }
 
+    ArrayList getPlayersOfATeam(){
+        return this.playersOfATeam;
+    }
+
+    int getIthPlayerProbOfOut(int playerId) {
+        return playersOfATeam.get(playerId).getPlayerType().getProbOfOut();
+    }
+
     void setTeamName(String teamName){
         this.teamName=teamName;
     }

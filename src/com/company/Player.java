@@ -1,12 +1,14 @@
 package com.company;
 
+import com.company.enums.PlayerType;
+
 public class Player {
     private String name;
     private int age;
     private int score;
     private int wicketsTaken;
     private int numberOfBallsPlayed;
-    Enum playerType;
+    PlayerType playerType;
 
     Player(){
         score=0;
@@ -88,11 +90,11 @@ public class Player {
         return this.numberOfBallsPlayed;
     }
 
-    void setPlayerType(Enum playerType){
+    void setPlayerType(PlayerType playerType){
         this.playerType=playerType;
     }
 
-    Enum getPlayerType(){
+    PlayerType getPlayerType() {
         return this.playerType;
     }
 
