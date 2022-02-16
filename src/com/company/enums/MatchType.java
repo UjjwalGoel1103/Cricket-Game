@@ -5,7 +5,7 @@ public enum MatchType {
     T20(20),
     FIFTY_OVER(50);
 
-    private int numberOfOver;
+    private final int numberOfOver;
     MatchType(int i) {
         numberOfOver = i;
     }
