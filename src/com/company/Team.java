@@ -1,104 +1,102 @@
 package com.company;
 
-import com.company.enums.MatchType;
+import com.company.Constants.Constants;
+import com.company.dto.PlayerDto;
+import com.company.dto.TeamDto;
 import com.company.enums.PlayerType;
 
 import java.util.ArrayList;
 
 public class Team {
 
-    private String teamName;
-    private int numberOfPlayer;
-    private int totalScore;
-    private int numberOfWicketsDown;
-    private int numberOfBallsPlayed;
-    private ArrayList<Player> playersOfATeam = new ArrayList<>(Constants.NO_OF_PLAYER);
+    TeamDto mTeamDto;
 
-    Team() {
-        numberOfPlayer = Constants.NO_OF_PLAYER;
+    public Team() {
+        mTeamDto = new TeamDto(Constants.NO_OF_PLAYER, new ArrayList<>(), );
+        mTeamDto.numberOfPlayer = Constants.NO_OF_PLAYER;
         totalScore = 0;
         numberOfWicketsDown = 0;
         numberOfBallsPlayed = 0;
 
         for(int i=0;i<numberOfPlayer;i++){
-            Player p = new Player();
+            PlayerDto p = new PlayerDto();
             playersOfATeam.add(p);
         }
 
         setPlayersDefaultInfo();
     }
 
-    ArrayList getPlayersOfATeam(){
+    public ArrayList getPlayersOfATeam(){
         return this.playersOfATeam;
     }
 
-    int getIthPlayerProbOfOut(int playerId) {
+    public int getIthPlayerProbOfOut(int playerId) {
         return playersOfATeam.get(playerId).getPlayerType().getProbOfOut();
     }
 
-    void setTeamName(String teamName){
+    public void setTeamName(String teamName){
         this.teamName=teamName;
     }
 
-    String getTeamName(){
+    public String getTeamName(){
         return this.teamName;
     }
 
-    void setNumberOfPlayer(int numberOfPlayer){
+    public void setNumberOfPlayer(int numberOfPlayer){
         this.numberOfPlayer=numberOfPlayer;
     }
 
-    int getNumberOfPlayer(){
+    public int getNumberOfPlayer(){
         return this.numberOfPlayer;
     }
 
-    void setTotalScore(int totalScore){
+    public void setTotalScore(int totalScore){
         this.totalScore=totalScore;
     }
 
-    int getTotalScore(){
+    public int getTotalScore(){
         return this.totalScore;
     }
 
-    void setNumberOfWicketsDown(int numberOfWicketsDown){
+    public void setNumberOfWicketsDown(int numberOfWicketsDown){
         this.numberOfWicketsDown=numberOfWicketsDown;
     }
 
-    int getNumberOfWicketsDown(){
+    public int getNumberOfWicketsDown(){
         return this.numberOfWicketsDown;
     }
 
-    void setNumberOfBallsPlayed(int numberOfBallsPlayed){
+    public void setNumberOfBallsPlayed(int numberOfBallsPlayed){
         this.numberOfBallsPlayed=numberOfBallsPlayed;
     }
 
-    int getNumberOfBallsPlayed(){
+    public int getNumberOfBallsPlayed(){
         return this.numberOfBallsPlayed;
     }
 
-    private void setIthPlayerOfATeam(int playerId, String name, int age, PlayerType playerType){
+    private private void setIthPlayerOfATeam(int playerId, String name, int age, PlayerType playerType){
         playersOfATeam.get(playerId).setName(name);
         playersOfATeam.get(playerId).setAge(age);
         playersOfATeam.get(playerId).setPlayerType(playerType);
     }
 
-    String getIthPlayerName(int playerID){
+    public String getIthPlayerName(int playerID){
         return playersOfATeam.get(playerID).getName();
     }
 
-    int getIthPlayerAge(int playerID){
+    public int getIthPlayerAge(int playerID){
         return playersOfATeam.get(playerID).getAge();
     }
 
-    int getIthPlayerScore(int playerID){
+    public int getIthPlayerScore(int playerID){
         return playersOfATeam.get(playerID).getScore();
     }
 
-    int getIthPlayerBalls(int playerID){
+    public int getIthPlayerBalls(int playerID){
         return playersOfATeam.get(playerID).getNumberOfBallsPlayed();
     }
 
-    void playCurrentBall(int currentBallStatus){
+    public void playCurrentBall(int currentBallStatus){
         this.numberOfBallsPlayed+=1;
         if(currentBallStatus==-1){
             this.numberOfWicketsDown+=1;
