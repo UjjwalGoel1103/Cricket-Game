@@ -1,7 +1,5 @@
 package com.company.enums;
 
-import com.company.Player;
-
 public enum PlayerType {
     BATSMAN("Batsmen", 3),
     WICKET_KEEPER("Wicket Keeper", 4),

@@ -1,21 +1,20 @@
-package com.company;
+package com.company.services;
 
+import com.company.Team;
+import com.company.dto.MatchDto;
 import com.company.enums.MatchType;
 import com.company.util.MatchUtils;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.company.validator.InputValidator.validateMatchType;
 
-public class Match {
-    int numberOfOvers;
-    Team team1 = new Team();
-    Team team2 = new Team();
+public class MatchImpls implements MatchService {
+    MatchDto matchData = new MatchDto();
 
-    Match(String teamName1, String teamName2){
-        team1.setTeamName(teamName1);
-        team2.setTeamName(teamName2);
+    public MatchImpls(String teamName1, String teamName2){
+        matchData.setTeam1Name(teamName1);
+        matchData.setTeam2Name(teamName2);
         Scanner sc = new Scanner(System.in);
         System.out.println("Starting A New Match");
         System.out.println("Which Format Match you want : FIVE_OVER / T20 / FIFTY_OVER");
@@ -31,25 +30,28 @@ public class Match {
             // convert String to enum
             applyingMatchType = MatchType.valueOf(matchTypeByUser);
         }
-        numberOfOvers = applyingMatchType.getOverInThisType();
+        matchData.setNumberOfOvers(applyingMatchType.getOverInThisType()) ;
         startMatch();
     }
 
-    private void startMatch(){
+    public void startMatch(){
         int winnerOfToss = performToss();
-        performInningSchedule(winnerOfToss);
         //Scoreboard With different Functionalities
-        ScoreBoard scoreBoard = new ScoreBoard(team1, team2);
+        ScoreBoardService scoreBoard = new ScoreBoardImpls(matchData);
+        performInningSchedule(winnerOfToss);
+        scoreBoard.updateScoreBoard(matchData);
         scoreBoard.showTeam1ScoreCard();
         scoreBoard.showTeam2ScoreCard();
         scoreBoard.showFinalResult();
     }
 
-    private void performInningSchedule(int winnerOfToss){
+    public void performInningSchedule(int winnerOfToss){
         Scanner sc = new Scanner(System.in);
         System.out.println("Would You like to Batting or Bowling");
+        //todo agr dusri team win then random generate choice dont ask user for batting or bowling
         String battingOrBowlingChoice = sc.nextLine();
         int winnerChoice;
+        //todo batting bowling puchne ka enum banana
         if(battingOrBowlingChoice.equals("Batting")){
             winnerChoice = 1;
         }
@@ -59,19 +61,19 @@ public class Match {
         if( (winnerOfToss==1 && winnerChoice==1) || (winnerOfToss==0 && winnerChoice==0) )
         {
             System.out.println("\n" + "FIRST INNING START");
-            playInning(team1);
+            playInning(matchData.getTeam1());
             System.out.println("\n"+ "\n" + "SECOND INNING START"  );
-            playInning(team2);
+            playInning(matchData.getTeam2());
         }
         else{
             System.out.println("\n" + "FIRST INNING START");
-            playInning(team2);
+            playInning(matchData.getTeam2());
             System.out.println("\n" + "\n" + "SECOND INNING START"  );
-            playInning(team1);
+            playInning(matchData.getTeam1());
         }
     }
 
-    int performToss(){
+    public int performToss(){
         int winnerOfToss = MatchUtils.randomNumberBetweenLtoR(1,2);
         return winnerOfToss;
     }
@@ -82,7 +84,7 @@ public class Match {
     }
 
     void playInning(Team battingTeam){
-        while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*numberOfOvers){
+        while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
             int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
             int currentBallStatus;
             //todo first add the functionlity to get the cuurent player
@@ -105,7 +107,7 @@ public class Match {
         }
     }
 
-    void showCurrentBallStatus(int currentBallStatus){
+    public void showCurrentBallStatus(int currentBallStatus){
         if(currentBallStatus==-1){
             System.out.print("W ");
         }

@@ -1,8 +1,8 @@
-package com.company;
+package com.company.dto;
 
 import com.company.enums.PlayerType;
 
-public class Player {
+public class PlayerDto {
     private String name;
     private int age;
     private int score;
@@ -10,7 +10,7 @@ public class Player {
     private int numberOfBallsPlayed;
     PlayerType playerType;
 
-    Player(){
+    PlayerDto(){
         score=0;
         wicketsTaken=0;
         numberOfBallsPlayed=0;
