@@ -8,23 +8,20 @@ public class TeamDto {
 
     private String teamName;
     private int numberOfPlayer;
-
-    public TeamDto(String teamName, int numberOfPlayer, int totalScore, int numberOfWicketsDown, int numberOfBallsPlayed,
-                   ArrayList<PlayerDto> playersOfATeam, ArrayList<PerBallDto> perBallStatus) {
-        this.teamName = teamName;
-        this.numberOfPlayer = numberOfPlayer;
-        this.totalScore = totalScore;
-        this.numberOfWicketsDown = numberOfWicketsDown;
-        this.numberOfBallsPlayed = numberOfBallsPlayed;
-        this.playersOfATeam = playersOfATeam;
-        this.perBallStatus = perBallStatus;
-    }
-
     private int totalScore;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
     private ArrayList<PlayerDto> playersOfATeam = new ArrayList<>(Constants.NO_OF_PLAYER);
     private ArrayList<PerBallDto> perBallStatus = new ArrayList<>();
+
+    public TeamDto() {
+        this.numberOfPlayer = Constants.NO_OF_PLAYER;
+        this.totalScore = 0;
+        this.numberOfWicketsDown = 0;
+        this.numberOfBallsPlayed = 0;
+    }
+
+
 
     public String getTeamName() {
         return teamName;

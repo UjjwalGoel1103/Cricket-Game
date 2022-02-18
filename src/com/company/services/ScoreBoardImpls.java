@@ -1,7 +1,6 @@
 package com.company.services;
 
 import com.company.Constants.Constants;
-import com.company.Team;
 import com.company.dto.MatchDto;
 
 public class ScoreBoardImpls implements ScoreBoardService {
@@ -17,7 +16,6 @@ public class ScoreBoardImpls implements ScoreBoardService {
 
     public void showLiveScore(){
         //todo first get the current playing team
-
         System.out.println(scoreBoardData.getTeam1().getTeamName() + "     "+scoreBoardData.getTeam1().getTotalScore() + "-" +
                 scoreBoardData.getTeam1().getNumberOfWicketsDown() + "(" + scoreBoardData.getTeam1().getNumberOfBallsPlayed()/6 + "." +
                 scoreBoardData.getTeam1().getNumberOfBallsPlayed()%6 + ")");

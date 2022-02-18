@@ -1,16 +1,16 @@
 package com.company.dto;
 
-import com.company.Team;
+import com.company.services.TeamService;
 
 public class MatchDto {
     int numberOfOvers;
     int currentBattingTeam;
-    Team team1 ;
-    Team team2 ;
+    TeamService teamService1;
+    TeamService teamService2;
 
     public MatchDto() {
-        team1 = new Team();
-        team2 = new Team();
+        teamService1 = new TeamService();
+        teamService2 = new TeamService();
     }
 
     public int getNumberOfOvers() {
@@ -21,27 +21,27 @@ public class MatchDto {
         this.numberOfOvers = numberOfOvers;
     }
 
-    public Team getTeam1() {
-        return team1;
+    public TeamService getTeam1() {
+        return teamService1;
     }
 
-    public void setTeam1(Team team1) {
-        this.team1 = team1;
+    public void setTeam1(TeamService teamService1) {
+        this.teamService1 = teamService1;
     }
 
-    public Team getTeam2() {
-        return team2;
+    public TeamService getTeam2() {
+        return teamService2;
     }
 
-    public void setTeam2(Team team2) {
-        this.team2 = team2;
+    public void setTeam2(TeamService teamService2) {
+        this.teamService2 = teamService2;
     }
 
     public void setTeam1Name(String team1Name){
-        team1.setTeamName(team1Name);
+        teamService1.setTeamName(team1Name);
     }
 
     public void setTeam2Name(String team2Name){
-        team1.setTeamName(team2Name);
+        teamService2.setTeamName(team2Name);
     }
 }

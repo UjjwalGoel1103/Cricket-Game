@@ -1,10 +1,12 @@
 package com.company.services;
 
-import com.company.Team;
 import com.company.dto.MatchDto;
+import com.company.dto.PerBallDto;
+import com.company.enums.BattingOrBowlingType;
 import com.company.enums.MatchType;
 import com.company.util.MatchUtils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static com.company.validator.InputValidator.validateMatchType;
@@ -34,6 +36,7 @@ public class MatchImpls implements MatchService {
         startMatch();
     }
 
+    //todo age chase krte time ek team ka score jada ho jae to whi break
     public void startMatch(){
         int winnerOfToss = performToss();
         //Scoreboard With different Functionalities
@@ -46,30 +49,43 @@ public class MatchImpls implements MatchService {
     }
 
     public void performInningSchedule(int winnerOfToss){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Would You like to Batting or Bowling");
-        //todo agr dusri team win then random generate choice dont ask user for batting or bowling
-        String battingOrBowlingChoice = sc.nextLine();
-        int winnerChoice;
-        //todo batting bowling puchne ka enum banana
-        if(battingOrBowlingChoice.equals("Batting")){
-            winnerChoice = 1;
+        BattingOrBowlingType winnerChoice;
+        if(winnerOfToss==1){
+            System.out.println("You won the toss, what you choose to elect BATTING or BOWLING");
+            Scanner sc = new Scanner(System.in);
+            String battingOrBowlingChoice = sc.nextLine();
+            String defaultChoice = "BATTING";
+            boolean validateInput = validateMatchType(battingOrBowlingChoice);
+            if(!validateInput){
+                System.out.println("You Provide inappropriate choice, So by default setting you to BAT first");
+                winnerChoice = BattingOrBowlingType.valueOf(defaultChoice);
+            }
+            else{
+                winnerChoice = BattingOrBowlingType.valueOf(battingOrBowlingChoice);
+            }
+        }
+        else {
+            int randomChoice = MatchUtils.randomNumberBetweenLtoR(1,2);
+            if(randomChoice==1)
+                winnerChoice = BattingOrBowlingType.BOWLING;
+            else
+                winnerChoice = BattingOrBowlingType.BATTING;
+            System.out.println("You losses the toss, " + matchData.getTeam2().getTeamName() +
+                    "chooses to" + winnerChoice.getWinnerChoice() + "first");
+
+        }
+
+        if( (winnerOfToss==1 && winnerChoice.getWinnerChoice()=="Batting") || (winnerOfToss==0 && winnerChoice.getWinnerChoice()=="Bowling") ) {
+            System.out.println("\n" + " First Inning" + "\n" +matchData.getTeam1().getTeamName() + " Batting Start");
+            playInning(matchData.getTeam1(), 1);
+            System.out.println("\n" + "\n" + " Second Inning" + "\n" +matchData.getTeam1().getTeamName() + " Bowling Start");
+            playInning(matchData.getTeam2(), 2);
         }
         else{
-            winnerChoice = 0;
-        }
-        if( (winnerOfToss==1 && winnerChoice==1) || (winnerOfToss==0 && winnerChoice==0) )
-        {
-            System.out.println("\n" + "FIRST INNING START");
-            playInning(matchData.getTeam1());
-            System.out.println("\n"+ "\n" + "SECOND INNING START"  );
-            playInning(matchData.getTeam2());
-        }
-        else{
-            System.out.println("\n" + "FIRST INNING START");
-            playInning(matchData.getTeam2());
-            System.out.println("\n" + "\n" + "SECOND INNING START"  );
-            playInning(matchData.getTeam1());
+            System.out.println("\n" + " First Inning" + "\n" +matchData.getTeam1().getTeamName() + " Batting Start");
+            playInning(matchData.getTeam2(),2 );
+            System.out.println("\n" + "\n" + " Second Inning" + "\n" +matchData.getTeam1().getTeamName() + " Bowling Start");
+            playInning(matchData.getTeam1(), 1);
         }
     }
 
@@ -83,27 +99,28 @@ public class MatchImpls implements MatchService {
         return ballStatus;
     }
 
-    void playInning(Team battingTeam){
-        while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
+    void playInning(TeamService battingTeamService, int teamId){
+        ArrayList <PerBallDto> perBallStatus = new ArrayList<>();
+        while (battingTeamService.getNumberOfWicketsDown()<10 && battingTeamService.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
             int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
             int currentBallStatus;
-            //todo first add the functionlity to get the cuurent player
-            //todo second ccurrent player ke enum ka prob of out nikalna
-            //todo third uske corresponding per ball ka status track krna
+            //todo per ball ka status track krna
             //todo arraylist me put krna show tracking krke
 
-            if(randomProbability <= battingTeam.getIthPlayerProbOfOut(battingTeam.getNumberOfWicketsDown())){
+            if(randomProbability <= battingTeamService.getIthPlayerProbOfOut(battingTeamService.getNumberOfWicketsDown())){
                 currentBallStatus=-1;
             }
             else{
                 currentBallStatus = currentBallStatus();
             }
-            if(battingTeam.getNumberOfBallsPlayed()%6==0 )
+            if(battingTeamService.getNumberOfBallsPlayed()%6==0 )
                 System.out.println();
-            if(battingTeam.getNumberOfBallsPlayed()==0 || battingTeam.getNumberOfBallsPlayed()%6==0 )
-                System.out.println(battingTeam.getNumberOfBallsPlayed()/6+1 + " Over");
+            if(battingTeamService.getNumberOfBallsPlayed()==0 || battingTeamService.getNumberOfBallsPlayed()%6==0 )
+                System.out.println(battingTeamService.getNumberOfBallsPlayed()/6+1 + " Over");
             showCurrentBallStatus(currentBallStatus);
-            battingTeam.playCurrentBall(currentBallStatus);
+            PerBallDto currentStatus = new PerBallDto(currentBallStatus, battingTeamService.getNumberOfWicketsDown());
+            perBallStatus.add(currentStatus);
+            battingTeamService.playCurrentBall(currentBallStatus);
         }
     }
 
