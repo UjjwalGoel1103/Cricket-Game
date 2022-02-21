@@ -2,6 +2,7 @@ package com.company.services;
 
 import com.company.Constants.Constants;
 import com.company.dto.MatchDto;
+import com.company.dto.TeamDto;
 
 public class ScoreBoardImpls implements ScoreBoardService {
 
@@ -15,14 +16,21 @@ public class ScoreBoardImpls implements ScoreBoardService {
     }
 
     public void showLiveScore(){
-        //todo first get the current playing team
-        System.out.println(scoreBoardData.getTeam1().getTeamName() + "     "+scoreBoardData.getTeam1().getTotalScore() + "-" +
-                scoreBoardData.getTeam1().getNumberOfWicketsDown() + "(" + scoreBoardData.getTeam1().getNumberOfBallsPlayed()/6 + "." +
-                scoreBoardData.getTeam1().getNumberOfBallsPlayed()%6 + ")");
-        System.out.println(scoreBoardData.getTeam2().getTeamName() + "     "+scoreBoardData.getTeam2().getTotalScore() + "-" +
-                scoreBoardData.getTeam2().getNumberOfWicketsDown() + "(" + scoreBoardData.getTeam2().getNumberOfBallsPlayed()/6 + "." +
-                scoreBoardData.getTeam2().getNumberOfBallsPlayed()%6 + ")");
-
+        TeamDto liveTeam;
+        if(scoreBoardData.getTeam1().getNumberOfBallsPlayed()==0){
+            liveTeam = scoreBoardData.getTeam2().getTeamDto();
+        }
+        else if(scoreBoardData.getTeam2().getNumberOfBallsPlayed()==0){
+            liveTeam = scoreBoardData.getTeam1().getTeamDto();
+        }
+        else if(scoreBoardData.getTeam1().getNumberOfWicketsDown()==10){
+            liveTeam = scoreBoardData.getTeam2().getTeamDto();
+        }
+        else{
+            liveTeam = scoreBoardData.getTeam1().getTeamDto();
+        }
+        System.out.println(liveTeam.getTeamName() + "   " + liveTeam.getTotalScore() + "-" + liveTeam.getNumberOfWicketsDown() +
+                "(" + liveTeam.getNumberOfBallsPlayed()/6 + "." + liveTeam.getNumberOfBallsPlayed()%6 + ")" + "\n");
     }
 
     public void showFinalResult(){
