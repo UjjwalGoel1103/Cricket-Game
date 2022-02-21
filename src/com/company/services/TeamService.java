@@ -21,6 +21,10 @@ public class TeamService {
         setPlayersDefaultInfo();
     }
 
+    public TeamDto getTeamDto(){
+        return teamDto;
+    }
+
     public ArrayList getPlayersOfATeam(){
         return this.teamDto.getPlayersOfATeam();
     }
