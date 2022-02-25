@@ -1,14 +1,18 @@
 package com.company.repo;
 
+import com.company.bean.matchBean;
+import com.company.bean.perBallBean;
+import com.company.bean.playerBean;
+import com.company.bean.teamBean;
 import com.company.dto.MatchDto;
 import com.company.services.ScoreBoardService;
 
+import java.util.ArrayList;
+
 public interface DbConnectionService {
-    void updateMatchData(int matchID, int numberOfOvers, String tossWinner, String matchWinner);
-    void updateTeamData(int matchID, String teamName, int numberOfPlayer, int totalScore,
-                        int numberOfWicketsDown, int numberOfBallsPlayed);
-    void updatePlayerData(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed,
-                          int playerType);
-    void updatePerBallData(int matchId, int teamId, int ballStatus, int playerId);
+    void updateMatchData(matchBean matchBean);
+    void updateTeamData(teamBean teamBean);
+    void updatePlayerData(ArrayList<playerBean> playersList);
+    void updatePerBallData(ArrayList<perBallBean> perBallStatus);
     void updateBeans (MatchDto scoreBoard);
 }

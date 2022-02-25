@@ -1,6 +1,7 @@
 package com.company.services;
 
 import com.company.Constants.Constants;
+import com.company.dto.PerBallDto;
 import com.company.dto.PlayerDto;
 import com.company.dto.TeamDto;
 import com.company.enums.PlayerType;
@@ -21,12 +22,28 @@ public class TeamService {
         setPlayersDefaultInfo();
     }
 
+    public ArrayList getPerBallStatus(){
+        return this.teamDto.getPerBallStatus();
+    }
+
+    public void setPerBallStatus(ArrayList<PerBallDto> perBallStatus){
+        this.teamDto.setPerBallStatus(perBallStatus);
+    }
+
     public TeamDto getTeamDto(){
         return teamDto;
     }
 
     public ArrayList getPlayersOfATeam(){
         return this.teamDto.getPlayersOfATeam();
+    }
+
+    public int getIthBallStatus(int ballId) {
+        return teamDto.getPerBallStatus().get(ballId).getBallStatus();
+    }
+
+    public int getIthBallPlayerId(int ballId) {
+        return teamDto.getPerBallStatus().get(ballId).getPlayerId();
     }
 
     public int getIthPlayerProbOfOut(int playerId) {
@@ -93,6 +110,10 @@ public class TeamService {
 
     public int getIthPlayerBalls(int playerID){
         return teamDto.getPlayersOfATeam().get(playerID).getNumberOfBallsPlayed();
+    }
+
+    public String getIthPlayerType(int playerID){
+        return teamDto.getPlayersOfATeam().get(playerID).getPlayerType().getStringPlayerType();
     }
 
     public void playCurrentBall(int currentBallStatus){

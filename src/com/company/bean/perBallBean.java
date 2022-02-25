@@ -6,6 +6,13 @@ public class perBallBean {
     private int ballStatus;
     private int playerId;
 
+    public perBallBean(int matchId, int teamId, int ballStatus, int playerId) {
+        this.matchId = matchId;
+        this.teamId = teamId;
+        this.ballStatus = ballStatus;
+        this.playerId = playerId;
+    }
+
     public int getMatchId() {
         return matchId;
     }

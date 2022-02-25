@@ -10,6 +10,17 @@ public class playerBean {
     int score;
     int numberOfBallsPlayed;
     String playerType;
+    int matchId;
+
+    public playerBean(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed, String playerType) {
+        this.playerId = playerId;
+        this.teamId = teamId;
+        this.name = name;
+        this.age = age;
+        this.score = score;
+        this.numberOfBallsPlayed = numberOfBallsPlayed;
+        this.playerType = playerType;
+    }
 
     public int getPlayerId() {
         return playerId;

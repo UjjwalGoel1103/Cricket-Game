@@ -45,6 +45,12 @@ public class MatchImpls implements MatchService {
     //todo age chase krte time ek team ka score jada ho jae to whi break
     public void startMatch(){
         int winnerOfToss = performToss();
+        if(winnerOfToss==1){
+            matchData.setTossWinner(matchData.getTeam1().getTeamName());
+        }
+        else{
+            matchData.setTossWinner(matchData.getTeam2().getTeamName());
+        }
         //Scoreboard With different Functionalities
         scoreBoard = new ScoreBoardImpls(matchData, connection);
         performInningSchedule(winnerOfToss);
@@ -131,6 +137,10 @@ public class MatchImpls implements MatchService {
                 scoreBoard.showLiveScore();
             }
         }
+        if(teamId==1)
+            matchData.getTeam1().setPerBallStatus(perBallStatus);
+        else
+            matchData.getTeam2().setPerBallStatus(perBallStatus);
     }
 
     public void showCurrentBallStatus(int currentBallStatus){

@@ -4,13 +4,30 @@ import com.company.services.TeamService;
 
 public class MatchDto {
     int numberOfOvers;
-    int currentBattingTeam;
+    String tossWinner;
+    String matchWinner;
     TeamService teamService1;
     TeamService teamService2;
 
     public MatchDto() {
         teamService1 = new TeamService();
         teamService2 = new TeamService();
+    }
+
+    public String getTossWinner() {
+        return this.tossWinner;
+    }
+
+    public void setTossWinner(String tossWinner) {
+        this.tossWinner = tossWinner;
+    }
+
+    public String getMatchWinner() {
+        return this.matchWinner;
+    }
+
+    public void setMatchWinner(String matchWinner) {
+        this.matchWinner = matchWinner;
     }
 
     public int getNumberOfOvers() {

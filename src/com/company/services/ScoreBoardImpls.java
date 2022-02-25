@@ -45,21 +45,20 @@ public class ScoreBoardImpls implements ScoreBoardService {
                 scoreBoardData.getTeam2().getNumberOfBallsPlayed()%6 + ")");
 
         if(scoreBoardData.getTeam1().getTotalScore() > scoreBoardData.getTeam2().getTotalScore()){
+            scoreBoardData.setMatchWinner(scoreBoardData.getTeam1().getTeamName());
             System.out.println(scoreBoardData.getTeam1().getTeamName() + " beats " + scoreBoardData.getTeam2().getTeamName() +  " by "
                     + (scoreBoardData.getTeam1().getTotalScore()- scoreBoardData.getTeam2().getTotalScore())
             + " runs.");
         }
         else if(scoreBoardData.getTeam2().getTotalScore() > scoreBoardData.getTeam1().getTotalScore()){
+            scoreBoardData.setMatchWinner(scoreBoardData.getTeam2().getTeamName());
             System.out.println(scoreBoardData.getTeam2().getTeamName() + " beats " + scoreBoardData.getTeam1().getTeamName()
                     +  " by " + (scoreBoardData.getTeam2().getTotalScore()- scoreBoardData.getTeam1().getTotalScore()) + " runs.");
         }
         else {
             System.out.println("Match Draws as both team scores "+ scoreBoardData.getTeam1().getTotalScore());
         }
-        int matchId=1;
         connection.updateBeans(scoreBoardData);
-        connection.updateMatchData(matchId, scoreBoardData.getNumberOfOvers(), "India", "India");
-
     }
 
     public void showTeam1ScoreCard(){

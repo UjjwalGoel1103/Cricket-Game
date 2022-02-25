@@ -17,4 +17,8 @@ public enum PlayerType {
     public int getProbOfOut(){
         return this.probOfOut;
     }
+
+    public String getStringPlayerType(){
+        return this.playerType;
+    }
 };

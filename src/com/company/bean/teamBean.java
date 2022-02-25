@@ -9,10 +9,19 @@ import java.util.ArrayList;
 public class teamBean {
     int matchId;
     private String teamName;
+    private int teamId;
     private int numberOfPlayer;
     private int totalScore;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
 
     public int getMatchId() {
         return matchId;

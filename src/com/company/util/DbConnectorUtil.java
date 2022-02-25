@@ -12,11 +12,11 @@ public class DbConnectorUtil {
             String password = "password";
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(dataBaseUrl, username, password);
-            System.out.println("Database connected sucessfully");
+            System.out.println("Database connected successfully");
             return conn;
         }
         catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }

@@ -8,4 +8,20 @@ public class PerBallDto {
         this.ballStatus = ballStatus;
         this.playerId = playerId;
     }
+
+    public int getBallStatus() {
+        return ballStatus;
+    }
+
+    public void setBallStatus(int ballStatus) {
+        this.ballStatus = ballStatus;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
 }

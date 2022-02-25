@@ -9,6 +9,7 @@ public class TeamDto {
     private String teamName;
     private int numberOfPlayer;
     private int totalScore;
+    private int teamId;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
     private ArrayList<PlayerDto> playersOfATeam = new ArrayList<>(Constants.NO_OF_PLAYER);
@@ -20,8 +21,6 @@ public class TeamDto {
         this.numberOfWicketsDown = 0;
         this.numberOfBallsPlayed = 0;
     }
-
-
 
     public String getTeamName() {
         return teamName;
