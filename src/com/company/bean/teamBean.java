@@ -1,25 +1,34 @@
-package com.company.dto;
+package com.company.bean;
 
 import com.company.Constants.Constants;
+import com.company.dto.PerBallDto;
+import com.company.dto.PlayerDto;
 
 import java.util.ArrayList;
 
-public class TeamDto {
-
+public class teamBean {
+    int matchId;
     private String teamName;
+    private int teamId;
     private int numberOfPlayer;
     private int totalScore;
-    private int teamId;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
-    private ArrayList<PlayerDto> playersOfATeam = new ArrayList<>(Constants.NO_OF_PLAYER);
-    private ArrayList<PerBallDto> perBallStatus = new ArrayList<>();
 
-    public TeamDto() {
-        this.numberOfPlayer = Constants.NO_OF_PLAYER;
-        this.totalScore = 0;
-        this.numberOfWicketsDown = 0;
-        this.numberOfBallsPlayed = 0;
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
+
+    public int getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(int matchId) {
+        this.matchId = matchId;
     }
 
     public String getTeamName() {
@@ -60,21 +69,5 @@ public class TeamDto {
 
     public void setNumberOfBallsPlayed(int numberOfBallsPlayed) {
         this.numberOfBallsPlayed = numberOfBallsPlayed;
-    }
-
-    public ArrayList<PlayerDto> getPlayersOfATeam() {
-        return playersOfATeam;
-    }
-
-    public void setPlayersOfATeam(ArrayList<PlayerDto> playersOfATeam) {
-        this.playersOfATeam = playersOfATeam;
-    }
-
-    public ArrayList<PerBallDto> getPerBallStatus() {
-        return perBallStatus;
-    }
-
-    public void setPerBallStatus(ArrayList<PerBallDto> perBallStatus) {
-        this.perBallStatus = perBallStatus;
     }
 }
