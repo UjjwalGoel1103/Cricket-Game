@@ -3,12 +3,15 @@ package com.company.services;
 import com.company.Constants.Constants;
 import com.company.dto.MatchDto;
 import com.company.dto.TeamDto;
+import com.company.repo.DbConnectionService;
 
 public class ScoreBoardImpls implements ScoreBoardService {
 
     MatchDto scoreBoardData;
-    ScoreBoardImpls(MatchDto matchDto){
-        this.scoreBoardData=matchDto;
+    DbConnectionService connection;
+    ScoreBoardImpls(MatchDto matchDto, DbConnectionService connection){
+        this.scoreBoardData = matchDto;
+        this.connection = connection;
     }
 
     public void updateScoreBoard(MatchDto matchDto){
@@ -53,6 +56,10 @@ public class ScoreBoardImpls implements ScoreBoardService {
         else {
             System.out.println("Match Draws as both team scores "+ scoreBoardData.getTeam1().getTotalScore());
         }
+        int matchId=1;
+        connection.updateBeans(scoreBoardData);
+        connection.updateMatchData(matchId, scoreBoardData.getNumberOfOvers(), "India", "India");
+
     }
 
     public void showTeam1ScoreCard(){

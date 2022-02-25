@@ -3,7 +3,7 @@ package com.company.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class connectionUtil {
+public class DbConnectorUtil {
     public static Connection getConnection() {
         try {
             String driver = "com.mysql.cj.jdbc.Driver";
@@ -13,6 +13,7 @@ public class connectionUtil {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(dataBaseUrl, username, password);
             System.out.println("Database connected sucessfully");
+            return conn;
         }
         catch (Exception e) {
             System.out.println(e);
