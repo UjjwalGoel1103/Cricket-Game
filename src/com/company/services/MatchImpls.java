@@ -4,6 +4,8 @@ import com.company.dto.MatchDto;
 import com.company.dto.PerBallDto;
 import com.company.enums.BattingOrBowlingType;
 import com.company.enums.MatchType;
+import com.company.repo.DbConnectionImpls;
+import com.company.repo.DbConnectionService;
 import com.company.util.MatchUtils;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import static com.company.validator.InputValidator.validateMatchType;
 public class MatchImpls implements MatchService {
     MatchDto matchData = new MatchDto();
     ScoreBoardService scoreBoard;
+    DbConnectionService connection = new DbConnectionImpls();
 
     public MatchImpls(String teamName1, String teamName2){
         matchData.setTeam1Name(teamName1);
@@ -35,6 +38,7 @@ public class MatchImpls implements MatchService {
             applyingMatchType = MatchType.valueOf(matchTypeByUser);
         }
         matchData.setNumberOfOvers(applyingMatchType.getOverInThisType()) ;
+
         startMatch();
     }
 
@@ -42,7 +46,7 @@ public class MatchImpls implements MatchService {
     public void startMatch(){
         int winnerOfToss = performToss();
         //Scoreboard With different Functionalities
-        scoreBoard = new ScoreBoardImpls(matchData);
+        scoreBoard = new ScoreBoardImpls(matchData, connection);
         performInningSchedule(winnerOfToss);
         scoreBoard.showTeam1ScoreCard();
         scoreBoard.showTeam2ScoreCard();
