@@ -1,12 +1,14 @@
 package com.company.bean;
 
-import com.company.dto.TeamDto;
+import java.sql.Timestamp;
 
-public class matchBean {
+public class MatchBean {
     int matchId;
     int numberOfOvers;
     String tossWinner;
     String matchWinner;
+    Timestamp createdTime;
+    Timestamp modifiedTime;
 
     public int getMatchId() {
         return matchId;

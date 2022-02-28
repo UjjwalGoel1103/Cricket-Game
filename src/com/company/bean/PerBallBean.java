@@ -1,12 +1,16 @@
 package com.company.bean;
 
-public class perBallBean {
+import java.sql.Timestamp;
+
+public class PerBallBean {
     int matchId;
     int teamId;
     private int ballStatus;
     private int playerId;
+    Timestamp createdTime;
+    Timestamp modifiedTime;
 
-    public perBallBean(int matchId, int teamId, int ballStatus, int playerId) {
+    public PerBallBean(int matchId, int teamId, int ballStatus, int playerId) {
         this.matchId = matchId;
         this.teamId = teamId;
         this.ballStatus = ballStatus;

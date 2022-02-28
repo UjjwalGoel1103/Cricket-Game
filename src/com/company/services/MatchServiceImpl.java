@@ -4,8 +4,8 @@ import com.company.dto.MatchDto;
 import com.company.dto.PerBallDto;
 import com.company.enums.BattingOrBowlingType;
 import com.company.enums.MatchType;
-import com.company.repo.DbConnectionImpls;
-import com.company.repo.DbConnectionService;
+import com.company.repo.DatabaseImpl;
+import com.company.repo.DatabaseService;
 import com.company.util.MatchUtils;
 
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import java.util.Scanner;
 import static com.company.validator.InputValidator.validateBattingOrBowlingType;
 import static com.company.validator.InputValidator.validateMatchType;
 
-public class MatchImpls implements MatchService {
-    MatchDto matchData = new MatchDto();
-    ScoreBoardService scoreBoard;
-    DbConnectionService connection = new DbConnectionImpls();
+public class MatchServiceImpl implements MatchService {
+    ScoreBoardService scoreBoardData;
+    DatabaseService connection = new DatabaseImpl();
 
-    public MatchImpls(String teamName1, String teamName2){
+    public MatchServiceImpl(String teamName1, String teamName2){
+        MatchDto matchData = new MatchDto();
         matchData.setTeam1Name(teamName1);
         matchData.setTeam2Name(teamName2);
         Scanner sc = new Scanner(System.in);
@@ -39,11 +39,11 @@ public class MatchImpls implements MatchService {
         }
         matchData.setNumberOfOvers(applyingMatchType.getOverInThisType()) ;
 
-        startMatch();
+        startMatch(matchData);
     }
 
     //todo age chase krte time ek team ka score jada ho jae to whi break
-    public void startMatch(){
+    public void startMatch(MatchDto matchData){
         int winnerOfToss = performToss();
         if(winnerOfToss==1){
             matchData.setTossWinner(matchData.getTeam1().getTeamName());
@@ -52,14 +52,14 @@ public class MatchImpls implements MatchService {
             matchData.setTossWinner(matchData.getTeam2().getTeamName());
         }
         //Scoreboard With different Functionalities
-        scoreBoard = new ScoreBoardImpls(matchData, connection);
-        performInningSchedule(winnerOfToss);
-        scoreBoard.showTeam1ScoreCard();
-        scoreBoard.showTeam2ScoreCard();
-        scoreBoard.showFinalResult();
+        scoreBoardData = new ScoreBoardImpl(connection);
+        performInningSchedule(winnerOfToss, matchData);
+        scoreBoardData.showTeam1ScoreCard(matchData);
+        scoreBoardData.showTeam2ScoreCard(matchData);
+        scoreBoardData.showFinalResult(matchData);
     }
 
-    public void performInningSchedule(int winnerOfToss){
+    public void performInningSchedule(int winnerOfToss, MatchDto matchData){
         BattingOrBowlingType winnerChoice;
         if(winnerOfToss==1){
             System.out.println("\n" + "You won the toss, what you choose to elect BATTING or BOWLING");
@@ -87,15 +87,15 @@ public class MatchImpls implements MatchService {
 
         if( (winnerOfToss==1 && winnerChoice.getWinnerChoice()=="Batting") || (winnerOfToss==0 && winnerChoice.getWinnerChoice()=="Bowling") ) {
             System.out.println("\n" + " First Inning " + "\n" +matchData.getTeam1().getTeamName() + "'s Batting Start");
-            playInning(matchData.getTeam1(), 1);
+            playInning(matchData.getTeam1(), 1, matchData);
             System.out.println("\n" + " Second Inning " + "\n" +matchData.getTeam1().getTeamName() + "'s Bowling Start");
-            playInning(matchData.getTeam2(), 2);
+            playInning(matchData.getTeam2(), 2, matchData);
         }
         else{
             System.out.println("\n" + " First Inning" + "\n" +matchData.getTeam1().getTeamName() + "'s Bowling Start");
-            playInning(matchData.getTeam2(),2 );
+            playInning(matchData.getTeam2(),2 , matchData);
             System.out.println("\n" + " Second Inning" + "\n" +matchData.getTeam1().getTeamName() + "'s Batting Start");
-            playInning(matchData.getTeam1(), 1);
+            playInning(matchData.getTeam1(), 1, matchData);
         }
     }
 
@@ -109,7 +109,7 @@ public class MatchImpls implements MatchService {
         return ballStatus;
     }
 
-    void playInning(TeamService battingTeamService, int teamId){
+    void playInning(TeamService battingTeamService, int teamId, MatchDto matchData){
         ArrayList <PerBallDto> perBallStatus = new ArrayList<>();
         while (battingTeamService.getNumberOfWicketsDown()<10 && battingTeamService.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
             int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
@@ -123,7 +123,7 @@ public class MatchImpls implements MatchService {
             }
             if(battingTeamService.getNumberOfBallsPlayed()%6==0 ){
                 System.out.println();
-                scoreBoard.showLiveScore();
+                scoreBoardData.showLiveScore(matchData);
             }
             if(battingTeamService.getNumberOfBallsPlayed()==0 || battingTeamService.getNumberOfBallsPlayed()%6==0 )
                 System.out.println((battingTeamService.getNumberOfBallsPlayed()/6+1) + " Over");
@@ -134,7 +134,7 @@ public class MatchImpls implements MatchService {
 
             if(battingTeamService.getNumberOfWicketsDown()==10){
                 System.out.println();
-                scoreBoard.showLiveScore();
+                scoreBoardData.showLiveScore(matchData);
             }
         }
         if(teamId==1)

@@ -1,8 +1,8 @@
 package com.company.bean;
 
-import com.company.enums.PlayerType;
+import java.sql.Timestamp;
 
-public class playerBean {
+public class PlayerBean {
     int playerId;
     int teamId;
     String name;
@@ -11,8 +11,10 @@ public class playerBean {
     int numberOfBallsPlayed;
     String playerType;
     int matchId;
+    Timestamp createdTime;
+    Timestamp modifiedTime;
 
-    public playerBean(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed, String playerType) {
+    public PlayerBean(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed, String playerType) {
         this.playerId = playerId;
         this.teamId = teamId;
         this.name = name;

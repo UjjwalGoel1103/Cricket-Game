@@ -12,7 +12,7 @@ public class DbConnectorUtil {
             String password = "password";
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(dataBaseUrl, username, password);
-            System.out.println("Database connected successfully");
+//            System.out.println("Database connected sucessfully");
             return conn;
         }
         catch (Exception e) {
