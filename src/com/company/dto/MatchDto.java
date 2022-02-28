@@ -8,10 +8,19 @@ public class MatchDto {
     String matchWinner;
     TeamService teamService1;
     TeamService teamService2;
+    int matchId;
 
     public MatchDto() {
         teamService1 = new TeamService();
         teamService2 = new TeamService();
+    }
+
+    public int getMatchId() {
+        return this.matchId;
+    }
+
+    public void setMatchId(int matchId) {
+        this.matchId = matchId;
     }
 
     public String getTossWinner() {

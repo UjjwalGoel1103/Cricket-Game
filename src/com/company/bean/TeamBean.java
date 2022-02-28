@@ -1,12 +1,8 @@
 package com.company.bean;
 
-import com.company.Constants.Constants;
-import com.company.dto.PerBallDto;
-import com.company.dto.PlayerDto;
+import java.sql.Timestamp;
 
-import java.util.ArrayList;
-
-public class teamBean {
+public class TeamBean {
     int matchId;
     private String teamName;
     private int teamId;
@@ -14,6 +10,8 @@ public class teamBean {
     private int totalScore;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
+    Timestamp createdTime;
+    Timestamp modifiedTime;
 
     public int getTeamId() {
         return teamId;

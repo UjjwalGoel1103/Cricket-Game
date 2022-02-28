@@ -3,9 +3,8 @@ package com.company.services;
 import com.company.dto.MatchDto;
 
 public interface ScoreBoardService {
-    void updateScoreBoard(MatchDto matchData);
-    void showLiveScore();
-    void showFinalResult();
-    void showTeam1ScoreCard();
-    void showTeam2ScoreCard();
+    void showLiveScore(MatchDto thisMatchScoreBoard);
+    void showFinalResult(MatchDto thisMatchScoreBoard);
+    void showTeam1ScoreCard(MatchDto thisMatchScoreBoard);
+    void showTeam2ScoreCard(MatchDto thisMatchScoreBoard);
 }
