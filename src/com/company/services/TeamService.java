@@ -12,17 +12,20 @@ public class TeamService {
 
     TeamDto teamDto;
 
-    public TeamService() {
+    public TeamService(int teamId) {
         teamDto = new TeamDto( );
 
         for(int i=0;i<teamDto.getNumberOfPlayer();i++){
             PlayerDto p = new PlayerDto();
             teamDto.getPlayersOfATeam().add(p);
         }
-        setPlayersDefaultInfo();
+        if(teamId == 1)
+            setTeam1PlayersDefaultInfo();
+        else
+            setTeam2PlayersDefaultInfo();
     }
 
-    public ArrayList getPerBallStatus(){
+    public ArrayList<PerBallDto> getPerBallStatus(){
         return this.teamDto.getPerBallStatus();
     }
 
@@ -119,6 +122,7 @@ public class TeamService {
     public void playCurrentBall(int currentBallStatus){
         teamDto.setNumberOfBallsPlayed(teamDto.getNumberOfBallsPlayed()+1);
         if(currentBallStatus==-1){
+            teamDto.getPlayersOfATeam().get(teamDto.getNumberOfWicketsDown()).playerLossesWicket();
             teamDto.setNumberOfWicketsDown(teamDto.getNumberOfWicketsDown()+1);
         }
         else if(currentBallStatus==0){
@@ -150,7 +154,7 @@ public class TeamService {
         }
     }
 
-    private void setPlayersDefaultInfo(){
+    private void setTeam1PlayersDefaultInfo(){
         setIthPlayerOfATeam(0,"Sachin Tendulakr ", 25, PlayerType.BATSMAN);
         setIthPlayerOfATeam(1,"Virendar Sehwag  ", 20, PlayerType.BATSMAN);
         setIthPlayerOfATeam(2,"Virat Kohli      ", 22, PlayerType.BATSMAN);
@@ -162,6 +166,20 @@ public class TeamService {
         setIthPlayerOfATeam(8,"Jasprit Bumrah   ", 20, PlayerType.BOWLER);
         setIthPlayerOfATeam(9,"Ravindra Ashwin  ", 27, PlayerType.BOWLER);
         setIthPlayerOfATeam(10,"Mohomadd Shami  ", 29, PlayerType.BOWLER);
+    }
+
+    private void setTeam2PlayersDefaultInfo(){
+        setIthPlayerOfATeam(0,"Aaron Finch      ", 21, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(1,"Ricky Pointing   ", 30, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(2,"Steve Smith      ", 22, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(3,"David Warner     ", 20, PlayerType.BATSMAN);
+        setIthPlayerOfATeam(4,"Matthew Wade     ", 35, PlayerType.WICKET_KEEPER);
+        setIthPlayerOfATeam(5,"Marcus Stoinis   ", 29, PlayerType.ALL_ROUNDER);
+        setIthPlayerOfATeam(6,"Glenn Maxwell    ", 25, PlayerType.ALL_ROUNDER);
+        setIthPlayerOfATeam(7,"Daniel Sams      ", 24, PlayerType.BOWLER);
+        setIthPlayerOfATeam(8,"Mitchell Starc   ", 23, PlayerType.BOWLER);
+        setIthPlayerOfATeam(9,"Adam Zampa       ", 21, PlayerType.BOWLER);
+        setIthPlayerOfATeam(10,"Pat Cummins      ", 28, PlayerType.BOWLER);
     }
 
 }

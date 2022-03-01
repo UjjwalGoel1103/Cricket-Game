@@ -1,10 +1,10 @@
 package com.company.enums;
 
 public enum PlayerType {
-    BATSMAN("Batsmen", 3),
-    WICKET_KEEPER("Wicket Keeper", 4),
-    ALL_ROUNDER("All Rounder", 5),
-    BOWLER("Bowler",6);
+    BATSMAN("Batsmen", 30),
+    WICKET_KEEPER("Wicket Keeper", 60),
+    ALL_ROUNDER("All Rounder", 100),
+    BOWLER("Bowler",150);
 
     private String playerType;
     private int probOfOut;
