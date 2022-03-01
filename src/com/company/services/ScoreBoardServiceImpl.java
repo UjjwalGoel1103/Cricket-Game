@@ -102,7 +102,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
     public void prepareMatchBean(MatchDto matchInfo){
         MatchBean matchBean = new MatchBean();
-        matchBean = new MatchBean();
         ResultSet resultSet;
         try {
             String query="select * from MatchData ";
