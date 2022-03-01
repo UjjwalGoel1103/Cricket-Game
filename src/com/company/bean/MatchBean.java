@@ -7,8 +7,10 @@ public class MatchBean {
     int numberOfOvers;
     String tossWinner;
     String matchWinner;
-    Timestamp createdTime;
-    Timestamp modifiedTime;
+    long createdTime;
+    long modifiedTime;
+    long deletionTime;
+
 
     public int getMatchId() {
         return matchId;

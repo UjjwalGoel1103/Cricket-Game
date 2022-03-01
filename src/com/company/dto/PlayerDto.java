@@ -16,6 +16,10 @@ public class PlayerDto {
         numberOfBallsPlayed=0;
     }
 
+    public void playerLossesWicket(){
+        this.numberOfBallsPlayed += 1;
+    }
+
     public void playerScoreZero(){
         this.numberOfBallsPlayed += 1;
     }

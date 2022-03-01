@@ -10,8 +10,9 @@ public class TeamBean {
     private int totalScore;
     private int numberOfWicketsDown;
     private int numberOfBallsPlayed;
-    Timestamp createdTime;
-    Timestamp modifiedTime;
+    long createdTime;
+    long modifiedTime;
+    long deletionTime;
 
     public int getTeamId() {
         return teamId;
