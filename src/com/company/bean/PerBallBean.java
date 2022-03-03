@@ -9,7 +9,7 @@ public class PerBallBean {
     private int playerId;
     long createdTime;
     long modifiedTime;
-    long deletionTime;
+    boolean deleted;
 
     public PerBallBean(int matchId, int teamId, int ballStatus, int playerId) {
         this.matchId = matchId;

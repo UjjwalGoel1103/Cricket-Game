@@ -1,10 +1,7 @@
 package com.company.services;
 
 import com.company.Constants.Constants;
-import com.company.bean.MatchBean;
-import com.company.bean.PerBallBean;
-import com.company.bean.PlayerBean;
-import com.company.bean.TeamBean;
+import com.company.bean.*;
 import com.company.dto.MatchDto;
 import com.company.dto.TeamDto;
 import com.company.repo.*;
@@ -98,6 +95,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
         prepareTeamDetailsBean(matchInfo);
         preparePlayerDetailsBean(matchInfo);
         preparePerBallDetailsBean(matchInfo);
+        prepareTeamInfoBean(matchInfo);
     }
 
     public void prepareMatchBean(MatchDto matchInfo){
@@ -152,15 +150,13 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
     }
 
     public void preparePlayerDetailsBean(MatchDto matchInfo){
-        ArrayList<PlayerBean> playerList = new ArrayList<>(2*Constants.NO_OF_PLAYER);
+        ArrayList<PlayerMatchBean> playerList = new ArrayList<>(2*Constants.NO_OF_PLAYER);
         for(int i=0;i<Constants.NO_OF_PLAYER;i++){
-            PlayerBean newPlayer = new PlayerBean(i, 1, matchInfo.getTeam1().getIthPlayerName(i), matchInfo.getTeam1().getIthPlayerAge(i),
-                    matchInfo.getTeam1().getIthPlayerScore(i), matchInfo.getTeam1().getIthPlayerBalls(i), matchInfo.getTeam1().getIthPlayerType(i));
+            PlayerMatchBean newPlayer = new PlayerMatchBean(i, 1, matchInfo.getTeam1().getIthPlayerScore(i), matchInfo.getTeam1().getIthPlayerBalls(i));
             playerList.add(newPlayer);
         }
         for(int i=0;i<Constants.NO_OF_PLAYER;i++){
-            PlayerBean newPlayer = new PlayerBean(i, 2, matchInfo.getTeam2().getIthPlayerName(i), matchInfo.getTeam2().getIthPlayerAge(i),
-                    matchInfo.getTeam2().getIthPlayerScore(i), matchInfo.getTeam2().getIthPlayerBalls(i), matchInfo.getTeam2().getIthPlayerType(i));
+            PlayerMatchBean newPlayer = new PlayerMatchBean(i, 2, matchInfo.getTeam2().getIthPlayerScore(i), matchInfo.getTeam2().getIthPlayerBalls(i));
             playerList.add(newPlayer);
         }
 
@@ -184,6 +180,25 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
         PerBallDetailsRepoService perBallDetails = new PerBallDetailsRepoImpl();
         perBallDetails.perBallDetailUpdation(perBallStatus);
+    }
+
+    public void prepareTeamInfoBean(MatchDto matchInfo){
+
+        ArrayList<PlayerInfoBean> playerInfoList = new ArrayList<>(2*Constants.NO_OF_PLAYER);
+        for(int i=0;i<Constants.NO_OF_PLAYER;i++){
+            PlayerInfoBean newPlayer = new PlayerInfoBean(matchInfo.getMatchId(), 1, i, matchInfo.getTeam1().getIthPlayerName(i), matchInfo.getTeam1().getIthPlayerAge(i),
+                    matchInfo.getTeam1().getIthPlayerType(i));
+            playerInfoList.add(newPlayer);
+        }
+        for(int i=0;i<Constants.NO_OF_PLAYER;i++){
+            PlayerInfoBean newPlayer = new PlayerInfoBean(matchInfo.getMatchId(), 2, i, matchInfo.getTeam2().getIthPlayerName(i), matchInfo.getTeam2().getIthPlayerAge(i),
+                    matchInfo.getTeam2().getIthPlayerType(i));
+            playerInfoList.add(newPlayer);
+        }
+
+        PlayerInfoService playerInfo = new PlayerInfoImpl();
+        playerInfo.playerInfoUpdation(playerInfoList, matchInfo);
+
     }
 
     MatchDto getLatestScoreBoardData(MatchDto thisMatchScoreBoard){

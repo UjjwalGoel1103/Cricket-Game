@@ -1,28 +1,20 @@
 package com.company.bean;
 
-import java.sql.Timestamp;
-
-public class PlayerBean {
+public class PlayerMatchBean {
     int playerId;
     int teamId;
-    String name;
-    int age;
     int score;
     int numberOfBallsPlayed;
-    String playerType;
     int matchId;
     long createdTime;
     long modifiedTime;
-    long deletionTime;
+    boolean deleted;
 
-    public PlayerBean(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed, String playerType) {
+    public PlayerMatchBean(int playerId, int teamId, int score, int numberOfBallsPlayed) {
         this.playerId = playerId;
         this.teamId = teamId;
-        this.name = name;
-        this.age = age;
         this.score = score;
         this.numberOfBallsPlayed = numberOfBallsPlayed;
-        this.playerType = playerType;
     }
 
     public int getPlayerId() {
@@ -41,21 +33,6 @@ public class PlayerBean {
         this.teamId = teamId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public int getScore() {
         return score;
@@ -73,11 +50,4 @@ public class PlayerBean {
         this.numberOfBallsPlayed = numberOfBallsPlayed;
     }
 
-    public String getPlayerType() {
-        return playerType;
-    }
-
-    public void setPlayerType(String playerType) {
-        this.playerType = playerType;
-    }
 }

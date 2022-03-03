@@ -1,7 +1,5 @@
 package com.company.bean;
 
-import java.sql.Timestamp;
-
 public class TeamBean {
     int matchId;
     private String teamName;
@@ -12,7 +10,7 @@ public class TeamBean {
     private int numberOfBallsPlayed;
     long createdTime;
     long modifiedTime;
-    long deletionTime;
+    boolean deleted;
 
     public int getTeamId() {
         return teamId;

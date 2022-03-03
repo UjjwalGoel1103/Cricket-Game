@@ -9,7 +9,7 @@ public class MatchBean {
     String matchWinner;
     long createdTime;
     long modifiedTime;
-    long deletionTime;
+    boolean deleted;
 
 
     public int getMatchId() {
