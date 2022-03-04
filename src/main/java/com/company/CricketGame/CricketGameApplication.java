@@ -17,8 +17,9 @@ public class CricketGameApplication {
 	}
 
 	@GetMapping(value = "/hello")
-	public void hello(){
+	public String hello(){
 		//MatchService newMatchService = new MatchServiceImpl("India", "Australia");
+		testing;
 	}
 
 }
