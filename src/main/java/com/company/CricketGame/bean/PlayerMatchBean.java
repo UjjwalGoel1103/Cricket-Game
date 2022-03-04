@@ -15,6 +15,7 @@ public class PlayerMatchBean {
         this.teamId = teamId;
         this.score = score;
         this.numberOfBallsPlayed = numberOfBallsPlayed;
+        ef;
     }
 
     public int getPlayerId() {
