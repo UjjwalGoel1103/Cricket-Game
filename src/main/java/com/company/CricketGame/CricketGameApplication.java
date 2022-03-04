@@ -1,5 +1,7 @@
 package com.company.CricketGame;
 
+import com.company.CricketGame.services.MatchService;
+import com.company.CricketGame.services.MatchServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -15,8 +17,8 @@ public class CricketGameApplication {
 	}
 
 	@GetMapping(value = "/hello")
-	public String hello(){
-		return "testing";
+	public void hello(){
+		//MatchService newMatchService = new MatchServiceImpl("India", "Australia");
 	}
 
 }
