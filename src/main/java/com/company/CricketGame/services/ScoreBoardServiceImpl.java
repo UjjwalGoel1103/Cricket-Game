@@ -1,30 +1,42 @@
-package com.company.services;
+package com.company.CricketGame.services;
 
-import com.company.Constants.Constants;
-import com.company.bean.*;
-import com.company.dto.MatchDto;
-import com.company.dto.TeamDto;
-import com.company.repo.*;
+import com.company.CricketGame.constants.Constants;
+import com.company.CricketGame.repo.DatabaseRepo;
+import com.company.CricketGame.bean.*;
+import com.company.CricketGame.dto.MatchDto;
+import com.company.CricketGame.dto.TeamDto;
+import com.company.CricketGame.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+@Component
 public class ScoreBoardServiceImpl implements ScoreBoardService {
 
-    DatabaseService connection;
+    @Autowired
+    MatchRepo matchDetails ;
+    @Autowired
+    PlayerDetailsRepo playerDetails;
+    @Autowired
+    TeamDetailsRepo teamDetails;
+    @Autowired
+    PerBallDetailsRepo perBallDetails;
 
-    ScoreBoardServiceImpl(DatabaseService connection){
-        this.connection = connection;
+    public ScoreBoardServiceImpl(MatchRepo matchDetails, PlayerDetailsRepo playerDetails) {
+        this.matchDetails = matchDetails;
+        this.playerDetails = playerDetails;
     }
 
     public void showLiveScore(MatchDto thisMatchScoreBoard, int teamId){
         TeamDto liveTeam;
         if(teamId == 1){
-            liveTeam = thisMatchScoreBoard.getTeam1().getTeamDto();
+            liveTeam = thisMatchScoreBoard.getTeam1();
         }
         else {
-            liveTeam = thisMatchScoreBoard.getTeam2().getTeamDto();
+            liveTeam = thisMatchScoreBoard.getTeam2();
         }
         System.out.println(liveTeam.getTeamName() + "   " + liveTeam.getTotalScore() + "-" + liveTeam.getNumberOfWicketsDown() +
                 "(" + liveTeam.getNumberOfBallsPlayed()/6 + "." + liveTeam.getNumberOfBallsPlayed()%6 + ")" + "\n");
@@ -99,27 +111,10 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
 
     public void prepareMatchBean(MatchDto matchInfo){
         MatchBean matchBean = new MatchBean();
-        matchBean = new MatchBean();
-        ResultSet resultSet;
-        try {
-            String query="select * from MatchData ";
-            DatabaseService queryFromDB = new DatabaseImpl();
-            resultSet = queryFromDB.getQueryFromDb(query);
-            int id = 0;
-            while (resultSet.next())
-            {
-                id = resultSet.getInt("matchId");
-            }
-            matchInfo.setMatchId(id+1);
-            matchBean.setMatchId(id+1);
+            matchBean.setMatchId(matchInfo.getMatchId());
             matchBean.setNumberOfOvers(matchInfo.getNumberOfOvers());
             matchBean.setTossWinner(matchInfo.getTossWinner());
             matchBean.setMatchWinner(matchInfo.getMatchWinner());
-        }
-        catch (SQLException exce){
-            exce.printStackTrace();
-        }
-        MatchRepoService matchDetails = new MatchRepoImpl();
         matchDetails.matchDetailUpdation(matchBean);
     }
 
@@ -143,7 +138,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
         teamBean2.setNumberOfBallsPlayed(matchInfo.getTeam2().getNumberOfBallsPlayed());
         teamBean2.setTeamId(2);
 
-        TeamDetailsRepoService teamDetails = new TeamDetailsRepoImpl();
         teamDetails.teamDetailUpdation(teamBean1);
         teamDetails.teamDetailUpdation(teamBean2);
     }
@@ -159,7 +153,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
             playerList.add(newPlayer);
         }
 
-        PlayerDetailsRepoService playerDetails = new PlayerDetailsRepoImpls();
         playerDetails.playerDetailUpdation(playerList, matchInfo);
     }
 
@@ -176,8 +169,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
                     matchInfo.getTeam2().getIthBallPlayerId(i));
             perBallStatus.add(currentBallStatus);
         }
-
-        PerBallDetailsRepoService perBallDetails = new PerBallDetailsRepoImpl();
         perBallDetails.perBallDetailUpdation(perBallStatus);
     }
 
@@ -195,8 +186,7 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
             playerInfoList.add(newPlayer);
         }
 
-        PlayerInfoService playerInfo = new PlayerInfoImpl();
-        playerInfo.playerInfoUpdation(playerInfoList, matchInfo);
+        playerDetails.playerInfoUpdation(playerInfoList, matchInfo);
 
     }
 

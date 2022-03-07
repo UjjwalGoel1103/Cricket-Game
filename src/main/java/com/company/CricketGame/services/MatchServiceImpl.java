@@ -1,49 +1,50 @@
-package com.company.services;
+package com.company.CricketGame.services;
 
-import com.company.dto.MatchDto;
-import com.company.dto.PerBallDto;
-import com.company.enums.BattingOrBowlingType;
-import com.company.enums.MatchType;
-import com.company.repo.DatabaseImpl;
-import com.company.repo.DatabaseService;
-import com.company.util.MatchUtils;
+import com.company.CricketGame.bean.MatchBean;
+import com.company.CricketGame.dto.MatchCreationResponseDto;
+import com.company.CricketGame.dto.MatchDto;
+import com.company.CricketGame.dto.PerBallDto;
+import com.company.CricketGame.dto.TeamDto;
+import com.company.CricketGame.enums.BattingOrBowlingType;
+import com.company.CricketGame.enums.MatchType;
+import com.company.CricketGame.repo.DatabaseRepo;
+import com.company.CricketGame.repo.DatabaseRepoImpl;
+import com.company.CricketGame.repo.MatchRepo;
+import com.company.CricketGame.util.MatchUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.company.validator.InputValidator.validateBattingOrBowlingType;
-import static com.company.validator.InputValidator.validateMatchType;
+import static com.company.CricketGame.validator.InputValidator.validateBattingOrBowlingType;
 
-
+@Component
 public class MatchServiceImpl implements MatchService {
-    ScoreBoardService scoreBoardData;
-    DatabaseService connection = new DatabaseImpl();
 
-    public MatchServiceImpl(String teamName1, String teamName2){
-        MatchDto matchData = new MatchDto();
-        matchData.setTeam1Name(teamName1);
-        matchData.setTeam2Name(teamName2);
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Starting A New Match");
-        System.out.println("Which Format Match you want : FIVE_OVER / T20 / FIFTY_OVER");
-        MatchType applyingMatchType;
-        String matchTypeByUser = sc.next();
-        String defaultMatchType = "FIVE_OVER";
-        boolean validateInput = validateMatchType(matchTypeByUser);
-        if(!validateInput){
-            System.out.println("\n" + "You Provide inappropriate input, So by default making match of 5 Overs" + "\n");
-            applyingMatchType = MatchType.valueOf(defaultMatchType);
-        }
-        else{
-            // convert String to enum
-            applyingMatchType = MatchType.valueOf(matchTypeByUser);
-        }
-        matchData.setNumberOfOvers(applyingMatchType.getOverInThisType()) ;
+    @Autowired
+    private final ScoreBoardService scoreBoardData;
+    @Autowired
+    private final MatchRepo matchRepo;
+    @Autowired
+    TeamService teamService;
 
-        startMatch(matchData);
+    public MatchServiceImpl(ScoreBoardService scoreBoardData, MatchRepo matchRepo, TeamService teamService){
+        this.scoreBoardData = scoreBoardData;
+        this.matchRepo = matchRepo;
+        this.teamService = teamService;
     }
 
-    public void startMatch(MatchDto matchData){
+    public MatchBean startMatch(MatchCreationResponseDto matchCreationResponse){
+        MatchDto matchData = new MatchDto();
+        matchData.setTeam1Name(matchCreationResponse.getTeam1Name());
+        matchData.setTeam2Name(matchCreationResponse.getTeam2Name());
+        MatchType applyingMatchType;
+        applyingMatchType = MatchType.valueOf(matchCreationResponse.getMatchType());
+        matchData.setNumberOfOvers(applyingMatchType.getOverInThisType()) ;
+
         int winnerOfToss = performToss();
         if(winnerOfToss==1){
             matchData.setTossWinner(matchData.getTeam1().getTeamName());
@@ -51,12 +52,22 @@ public class MatchServiceImpl implements MatchService {
         else{
             matchData.setTossWinner(matchData.getTeam2().getTeamName());
         }
-        //Scoreboard With different Functionalities
-        scoreBoardData = new ScoreBoardServiceImpl(connection);
+        matchData.setMatchId(getNewMatchId());
+
         performInningSchedule(winnerOfToss, matchData);
         scoreBoardData.showTeam1ScoreCard(matchData);
         scoreBoardData.showTeam2ScoreCard(matchData);
         scoreBoardData.showFinalResult(matchData);
+
+        MatchBean matchBean = new MatchBean();
+        matchBean.setMatchId(matchData.getMatchId());
+        matchBean.setTossWinner(matchData.getTossWinner());
+        matchBean.setNumberOfOvers(matchData.getNumberOfOvers());
+        matchBean.setMatchWinner(matchData.getMatchWinner());
+        matchBean.setCreatedTime(System.currentTimeMillis());
+        matchBean.setModifiedTime(System.currentTimeMillis());
+        matchBean.setDeleted(false);
+        return matchBean;
     }
 
     public void performInningSchedule(int winnerOfToss, MatchDto matchData){
@@ -64,7 +75,7 @@ public class MatchServiceImpl implements MatchService {
         if(winnerOfToss==1){
             System.out.println("\n" + "You won the toss, what you choose to elect BATTING or BOWLING");
             Scanner sc = new Scanner(System.in);
-            String battingOrBowlingChoice = sc.nextLine();
+            String battingOrBowlingChoice = "BATTING";
             String defaultChoice = "BATTING";
             boolean validateInput = validateBattingOrBowlingType(battingOrBowlingChoice);
             if(!validateInput){
@@ -109,30 +120,30 @@ public class MatchServiceImpl implements MatchService {
         return ballStatus;
     }
 
-    void playInning(TeamService battingTeamService, int teamId, MatchDto matchData){
+    void playInning(TeamDto battingTeam, int teamId, MatchDto matchData){
         ArrayList <PerBallDto> perBallStatus = new ArrayList<>();
-        while (battingTeamService.getNumberOfWicketsDown()<11 && battingTeamService.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
+        while (battingTeam.getNumberOfWicketsDown()<11 && battingTeam.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
             int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,1000);
             int currentBallStatus;
 
-            if(randomProbability <= battingTeamService.getIthPlayerProbOfOut(battingTeamService.getNumberOfWicketsDown())){
+            if(randomProbability <= battingTeam.getIthPlayerProbOfOut(battingTeam.getNumberOfWicketsDown())){
                 currentBallStatus=-1;
             }
             else{
                 currentBallStatus = currentBallStatus();
             }
-            if(battingTeamService.getNumberOfBallsPlayed()%6==0 ){
+            if(battingTeam.getNumberOfBallsPlayed()%6==0 ){
                 System.out.println();
                 scoreBoardData.showLiveScore(matchData, teamId);
             }
-            if(battingTeamService.getNumberOfBallsPlayed()==0 || battingTeamService.getNumberOfBallsPlayed()%6==0 )
-                System.out.println((battingTeamService.getNumberOfBallsPlayed()/6+1) + " Over");
+            if(battingTeam.getNumberOfBallsPlayed()==0 || battingTeam.getNumberOfBallsPlayed()%6==0 )
+                System.out.println((battingTeam.getNumberOfBallsPlayed()/6+1) + " Over");
             showCurrentBallStatus(currentBallStatus);
-            PerBallDto currentStatus = new PerBallDto(currentBallStatus, battingTeamService.getNumberOfWicketsDown());
+            PerBallDto currentStatus = new PerBallDto(currentBallStatus, battingTeam.getNumberOfWicketsDown());
             perBallStatus.add(currentStatus);
-            battingTeamService.playCurrentBall(currentBallStatus);
+            battingTeam = teamService.playCurrentBall(battingTeam, currentBallStatus);
 
-            if(battingTeamService.getNumberOfWicketsDown()==11){
+            if(battingTeam.getNumberOfWicketsDown()==11){
                 System.out.println();
                 scoreBoardData.showLiveScore(matchData, teamId);
             }
@@ -151,5 +162,34 @@ public class MatchServiceImpl implements MatchService {
             System.out.print(currentBallStatus+ " ");
         }
     }
+
+    public MatchBean getMatchInfo(int matchId){
+        return matchRepo.getMatchIdInfo(matchId);
+    }
+
+    public boolean validateMatchCreationResponse(MatchCreationResponseDto matchCreationResponse){
+        if(matchCreationResponse.getTeam1Name().isEmpty()){
+            return false;
+        }
+        if(matchCreationResponse.getTeam2Name().isEmpty()){
+            return false;
+        }
+        if(matchCreationResponse.getMatchType().isEmpty()){
+            return false;
+        }
+        if(matchCreationResponse.getTossWinnerPreference().isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateMatchId(int matchId){
+        return matchRepo.checkMatchId(matchId);
+    }
+
+    public int getNewMatchId(){
+        return matchRepo.getNewMatchId();
+    }
+
 }
 

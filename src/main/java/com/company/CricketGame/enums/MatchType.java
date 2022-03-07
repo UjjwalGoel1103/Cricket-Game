@@ -1,4 +1,4 @@
-package com.company.enums;
+package com.company.CricketGame.enums;
 
 public enum MatchType {
     FIVE_OVER(5),
