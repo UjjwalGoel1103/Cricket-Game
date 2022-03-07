@@ -76,7 +76,6 @@ public class ScoreBoardServiceImpl implements ScoreBoardService {
         System.out.println("Team "+thisMatchScoreBoard.getTeam2().getTeamName()+" Total Score is : "+thisMatchScoreBoard.getTeam2().getTotalScore());
         System.out.println("Number of over Played "+thisMatchScoreBoard.getTeam2().getNumberOfBallsPlayed()/6+"."+thisMatchScoreBoard.getTeam2().getNumberOfBallsPlayed()%6);
         System.out.println("Number of wickets fallen "+thisMatchScoreBoard.getTeam2().getNumberOfWicketsDown());
-        //todo printing the score card for each player
         System.out.println();
         System.out.println("Player Name        Runs Scored      Strike Rate");
         for(int i=0;i<Constants.NO_OF_PLAYER;i++){

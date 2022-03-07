@@ -1,4 +1,4 @@
-package com.company.CricketGame.Constants;
+package com.company.CricketGame.constants;
 
 public class Constants {
 

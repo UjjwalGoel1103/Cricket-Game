@@ -1,11 +1,13 @@
 package com.company.CricketGame.repo;
 
-import com.company.CricketGame.dto.MatchDto;
 import com.company.CricketGame.util.DbConnectorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
-public class DatabaseImpl implements DatabaseService {
+@Component
+public class DatabaseRepoImpl implements DatabaseRepo {
 
     Connection conn;
 
@@ -24,8 +26,8 @@ public class DatabaseImpl implements DatabaseService {
     }
 
     public void updateQueryToDb(String query){
-        PreparedStatement preparedStatement ;
         conn = DbConnectorUtil.getConnection();
+        PreparedStatement preparedStatement ;
         try {
             preparedStatement=conn.prepareStatement(query);
             preparedStatement.executeUpdate();

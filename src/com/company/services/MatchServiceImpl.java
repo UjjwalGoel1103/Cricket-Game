@@ -14,6 +14,7 @@ import java.util.Scanner;
 import static com.company.validator.InputValidator.validateBattingOrBowlingType;
 import static com.company.validator.InputValidator.validateMatchType;
 
+
 public class MatchServiceImpl implements MatchService {
     ScoreBoardService scoreBoardData;
     DatabaseService connection = new DatabaseImpl();
@@ -42,7 +43,6 @@ public class MatchServiceImpl implements MatchService {
         startMatch(matchData);
     }
 
-    //todo age chase krte time ek team ka score jada ho jae to whi break
     public void startMatch(MatchDto matchData){
         int winnerOfToss = performToss();
         if(winnerOfToss==1){

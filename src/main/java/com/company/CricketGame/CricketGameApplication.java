@@ -16,10 +16,4 @@ public class CricketGameApplication {
 		SpringApplication.run(CricketGameApplication.class, args);
 	}
 
-	@GetMapping(value = "/hello")
-	public String hello(){
-		//MatchService newMatchService = new MatchServiceImpl("India", "Australia");
-		testing;
-	}
-
 }

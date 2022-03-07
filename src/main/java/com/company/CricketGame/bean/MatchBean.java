@@ -1,5 +1,7 @@
 package com.company.CricketGame.bean;
 
+import org.springframework.context.annotation.Bean;
+
 import java.sql.Timestamp;
 
 public class MatchBean {
@@ -44,4 +46,27 @@ public class MatchBean {
         this.matchWinner = matchWinner;
     }
 
+    public long getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public long getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(long modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

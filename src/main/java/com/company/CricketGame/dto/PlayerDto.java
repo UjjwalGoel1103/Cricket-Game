@@ -1,7 +1,9 @@
 package com.company.CricketGame.dto;
 
 import com.company.CricketGame.enums.PlayerType;
+import lombok.Data;
 
+@Data
 public class PlayerDto {
     private String name;
     private int age;

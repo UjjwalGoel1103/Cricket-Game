@@ -1,5 +1,8 @@
 package com.company.CricketGame.dto;
 
+import lombok.Data;
+
+@Data
 public class PerBallDto {
     private int ballStatus;
     private int playerId;

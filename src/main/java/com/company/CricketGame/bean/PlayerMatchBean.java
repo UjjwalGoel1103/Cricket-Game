@@ -50,4 +50,35 @@ public class PlayerMatchBean {
         this.numberOfBallsPlayed = numberOfBallsPlayed;
     }
 
+    public int getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(int matchId) {
+        this.matchId = matchId;
+    }
+
+    public long getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public long getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(long modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }

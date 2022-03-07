@@ -1,8 +1,8 @@
 package com.company.CricketGame.enums;
 
 public enum PlayerType {
-    BATSMAN("Batsmen", 30),
-    WICKET_KEEPER("Wicket Keeper", 60),
+    BATSMAN("Batsmen", 50),
+    WICKET_KEEPER("Wicket Keeper", 70),
     ALL_ROUNDER("All Rounder", 100),
     BOWLER("Bowler",150);
 

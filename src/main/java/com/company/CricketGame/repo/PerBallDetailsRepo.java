@@ -1,11 +1,13 @@
 package com.company.CricketGame.repo;
 
 import com.company.CricketGame.bean.PerBallBean;
-import com.company.CricketGame.dto.MatchDto;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
-public interface PerBallDetailsRepoService {
+@Repository
+public interface PerBallDetailsRepo {
 
     void perBallDetailUpdation(ArrayList<PerBallBean> perBallStatus) ;
 }

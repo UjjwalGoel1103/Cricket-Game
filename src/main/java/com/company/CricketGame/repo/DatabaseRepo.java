@@ -1,10 +1,12 @@
 package com.company.CricketGame.repo;
 
-import com.company.CricketGame.dto.MatchDto;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 
-public interface DatabaseService {
+@Repository
+public interface DatabaseRepo {
 
     ResultSet getQueryFromDb(String query);
 

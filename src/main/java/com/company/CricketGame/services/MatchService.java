@@ -1,12 +1,21 @@
 package com.company.CricketGame.services;
 
+import com.company.CricketGame.bean.MatchBean;
+import com.company.CricketGame.dto.MatchCreationResponseDto;
 import com.company.CricketGame.dto.MatchDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface MatchService {
 
     int performToss();
-    void startMatch(MatchDto matchData);
+    MatchBean startMatch(MatchCreationResponseDto matchCreationResponse);
 
     void performInningSchedule(int winnerOFToss, MatchDto matchData);
+
+    MatchBean getMatchInfo(int matchId);
+    boolean validateMatchCreationResponse(MatchCreationResponseDto matchCreationResponse);
+    boolean validateMatchId(int matchId);
+    int getNewMatchId();
 
 }
