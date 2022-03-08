@@ -6,5 +6,6 @@ public class MatchUtils {
         max++;
         int randomNumber = (int)(Math.random()*(max-min)+min);
         return randomNumber;
+
     }
 }
