@@ -4,11 +4,13 @@ import com.company.CricketGame.bean.MatchBean;
 import com.company.CricketGame.dto.MatchCreationResponseDto;
 import com.company.CricketGame.dto.MatchDto;
 import org.springframework.stereotype.Service;
+import springfox.documentation.annotations.Cacheable;
 
 @Service
 public interface MatchService {
 
     int performToss();
+
     MatchBean startMatch(MatchCreationResponseDto matchCreationResponse);
 
     void performInningSchedule(int winnerOFToss, MatchDto matchData);

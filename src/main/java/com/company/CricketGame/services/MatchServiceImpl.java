@@ -11,15 +11,21 @@ import com.company.CricketGame.repo.DatabaseRepo;
 import com.company.CricketGame.repo.DatabaseRepoImpl;
 import com.company.CricketGame.repo.MatchRepo;
 import com.company.CricketGame.util.MatchUtils;
+import jdk.jpackage.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import static com.company.CricketGame.validator.InputValidator.validateBattingOrBowlingType;
+
 
 @Component
 public class MatchServiceImpl implements MatchService {
@@ -37,6 +43,7 @@ public class MatchServiceImpl implements MatchService {
         this.teamService = teamService;
     }
 
+    @CachePut( "matchInfo" )
     public MatchBean startMatch(MatchCreationResponseDto matchCreationResponse){
         MatchDto matchData = new MatchDto();
         matchData.setTeam1Name(matchCreationResponse.getTeam1Name());
@@ -163,7 +170,9 @@ public class MatchServiceImpl implements MatchService {
         }
     }
 
+    @Cacheable( cacheNames="matchInfo" )
     public MatchBean getMatchInfo(int matchId){
+        System.out.println("Contacting Database");
         return matchRepo.getMatchIdInfo(matchId);
     }
 
