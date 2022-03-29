@@ -9,6 +9,7 @@ import com.company.CricketGame.repo.DatabaseRepo;
 import com.company.CricketGame.repo.DatabaseRepoImpl;
 import com.company.CricketGame.repo.TeamDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Component
+@CacheConfig(cacheNames = {"team"})
 public class TeamServiceImpl implements TeamService{
 
     @Autowired
@@ -63,7 +65,7 @@ public class TeamServiceImpl implements TeamService{
         return teamDto;
     }
 
-    @Cacheable( cacheNames="teamDetails" )
+    @Cacheable(cacheNames = "teamCache")
     public TeamBean getTeamDetail(int matchId, int teamId){
         return teamDetails.getTeamIdDetail(matchId, teamId);
     }

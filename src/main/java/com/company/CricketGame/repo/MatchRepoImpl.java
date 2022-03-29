@@ -2,12 +2,15 @@ package com.company.CricketGame.repo;
 
 import com.company.CricketGame.bean.MatchBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Component
+@Profile("SqlTypeDB")
+@Repository
 public class MatchRepoImpl implements MatchRepo {
 
     @Autowired

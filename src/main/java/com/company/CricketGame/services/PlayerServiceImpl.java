@@ -6,6 +6,7 @@ import com.company.CricketGame.repo.DatabaseRepo;
 import com.company.CricketGame.repo.DatabaseRepoImpl;
 import com.company.CricketGame.repo.PlayerDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Component
+@CacheConfig(cacheNames = {"player"})
 public class PlayerServiceImpl implements PlayerService{
 
     @Autowired
@@ -22,12 +24,12 @@ public class PlayerServiceImpl implements PlayerService{
         this.playerDetail = playerDetail;
     }
 
-    @Cacheable( cacheNames="playerInfo" )
+    @Cacheable(cacheNames = "playerCache")
     public PlayerInfoBean getPlayerInfo(int matchId, int teamId, int playerId){
         return playerDetail.getPlayerIdInfo(matchId, teamId, playerId);
     }
 
-    @Cacheable( cacheNames="playerMatchInfo" )
+    @Cacheable(cacheNames = "playerCache")
     public PlayerMatchBean getPlayerMatchInfo(int matchId, int teamId, int playerId){
         return playerDetail.getPlayerIdMatchInfo(matchId, teamId, playerId);
     }

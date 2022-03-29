@@ -46,4 +46,11 @@ public class MatchCreationResponseDto {
     public void setTossWinnerPreference(String tossWinnerPreference) {
         this.tossWinnerPreference = tossWinnerPreference;
     }
+
+    public MatchCreationResponseDto(String team1Name, String team2Name, String matchType, String tossWinnerPreference) {
+        this.team1Name = team1Name;
+        this.team2Name = team2Name;
+        this.matchType = matchType;
+        this.tossWinnerPreference = tossWinnerPreference;
+    }
 }

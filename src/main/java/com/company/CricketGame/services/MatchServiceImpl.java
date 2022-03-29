@@ -13,8 +13,14 @@ import com.company.CricketGame.repo.MatchRepo;
 import com.company.CricketGame.util.MatchUtils;
 import jdk.jpackage.internal.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
 
@@ -28,6 +34,8 @@ import static com.company.CricketGame.validator.InputValidator.validateBattingOr
 
 
 @Component
+@CacheConfig(cacheNames = {"matchId"})
+
 public class MatchServiceImpl implements MatchService {
 
     @Autowired
@@ -43,7 +51,7 @@ public class MatchServiceImpl implements MatchService {
         this.teamService = teamService;
     }
 
-    @CachePut( "matchInfo" )
+    @CachePut(cacheNames = "matchCache")
     public MatchBean startMatch(MatchCreationResponseDto matchCreationResponse){
         MatchDto matchData = new MatchDto();
         matchData.setTeam1Name(matchCreationResponse.getTeam1Name());
@@ -170,7 +178,7 @@ public class MatchServiceImpl implements MatchService {
         }
     }
 
-    @Cacheable( cacheNames="matchInfo" )
+    @Cacheable(cacheNames = "matchCache")
     public MatchBean getMatchInfo(int matchId){
         System.out.println("Contacting Database");
         return matchRepo.getMatchIdInfo(matchId);
