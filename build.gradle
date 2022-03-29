@@ -1,0 +1,54 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.company'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.session:spring-session-jdbc'
+	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'nl.tritales.springrestdoc:springrestdoc:0.1.0'
+	implementation 'com.spt-development:spt-development-logging-spring:2.0.2'
+	implementation 'com.github.magrifle:data-search-api:2.0.5'
+	implementation 'com.github.salemebo:restful-api:0.2.8'
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui'
+	implementation group: 'io.springfox', name: 'springfox-swagger2'
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter-cache:2.6.4'
+	implementation 'com.github.ben-manes.caffeine:caffeine:3.0.6'
+	implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.0.6'
+	implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.3'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
