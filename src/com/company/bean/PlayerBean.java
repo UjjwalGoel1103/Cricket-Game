@@ -11,8 +11,9 @@ public class PlayerBean {
     int numberOfBallsPlayed;
     String playerType;
     int matchId;
-    Timestamp createdTime;
-    Timestamp modifiedTime;
+    long createdTime;
+    long modifiedTime;
+    long deletionTime;
 
     public PlayerBean(int playerId, int teamId, String name, int age, int score, int numberOfBallsPlayed, String playerType) {
         this.playerId = playerId;

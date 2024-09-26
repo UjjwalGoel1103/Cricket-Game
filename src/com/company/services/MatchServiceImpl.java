@@ -52,7 +52,7 @@ public class MatchServiceImpl implements MatchService {
             matchData.setTossWinner(matchData.getTeam2().getTeamName());
         }
         //Scoreboard With different Functionalities
-        scoreBoardData = new ScoreBoardImpl(connection);
+        scoreBoardData = new ScoreBoardServiceImpl(connection);
         performInningSchedule(winnerOfToss, matchData);
         scoreBoardData.showTeam1ScoreCard(matchData);
         scoreBoardData.showTeam2ScoreCard(matchData);
@@ -111,8 +111,8 @@ public class MatchServiceImpl implements MatchService {
 
     void playInning(TeamService battingTeamService, int teamId, MatchDto matchData){
         ArrayList <PerBallDto> perBallStatus = new ArrayList<>();
-        while (battingTeamService.getNumberOfWicketsDown()<10 && battingTeamService.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
-            int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
+        while (battingTeamService.getNumberOfWicketsDown()<11 && battingTeamService.getNumberOfBallsPlayed()<6*matchData.getNumberOfOvers()){
+            int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,1000);
             int currentBallStatus;
 
             if(randomProbability <= battingTeamService.getIthPlayerProbOfOut(battingTeamService.getNumberOfWicketsDown())){
@@ -123,7 +123,7 @@ public class MatchServiceImpl implements MatchService {
             }
             if(battingTeamService.getNumberOfBallsPlayed()%6==0 ){
                 System.out.println();
-                scoreBoardData.showLiveScore(matchData);
+                scoreBoardData.showLiveScore(matchData, teamId);
             }
             if(battingTeamService.getNumberOfBallsPlayed()==0 || battingTeamService.getNumberOfBallsPlayed()%6==0 )
                 System.out.println((battingTeamService.getNumberOfBallsPlayed()/6+1) + " Over");
@@ -132,9 +132,9 @@ public class MatchServiceImpl implements MatchService {
             perBallStatus.add(currentStatus);
             battingTeamService.playCurrentBall(currentBallStatus);
 
-            if(battingTeamService.getNumberOfWicketsDown()==10){
+            if(battingTeamService.getNumberOfWicketsDown()==11){
                 System.out.println();
-                scoreBoardData.showLiveScore(matchData);
+                scoreBoardData.showLiveScore(matchData, teamId);
             }
         }
         if(teamId==1)

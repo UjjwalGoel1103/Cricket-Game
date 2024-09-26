@@ -11,8 +11,8 @@ public class MatchDto {
     int matchId;
 
     public MatchDto() {
-        teamService1 = new TeamService();
-        teamService2 = new TeamService();
+        teamService1 = new TeamService(1);
+        teamService2 = new TeamService(2);
     }
 
     public int getMatchId() {
