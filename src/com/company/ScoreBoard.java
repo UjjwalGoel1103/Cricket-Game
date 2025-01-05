@@ -8,6 +8,18 @@ public class ScoreBoard {
         this.team2=team2;
     }
 
+    void showLiveScore(){
+        //todo first get the current playing team
+
+        System.out.println(team1.getTeamName() + "     "+team1.getTotalScore() + "-" +
+                team1.getNumberOfWicketsDown() + "(" + team1.getNumberOfBallsPlayed()/6 + "." +
+                team1.getNumberOfBallsPlayed()%6 + ")");
+        System.out.println(team2.getTeamName() + "     "+team2.getTotalScore() + "-" +
+                team2.getNumberOfWicketsDown() + "(" + team2.getNumberOfBallsPlayed()/6 + "." +
+                team2.getNumberOfBallsPlayed()%6 + ")");
+
+    }
+
     void showFinalResult(){
         System.out.println(team1.getTeamName() + "     "+team1.getTotalScore() + "-" +
                 team1.getNumberOfWicketsDown() + "(" + team1.getNumberOfBallsPlayed()/6 + "." +

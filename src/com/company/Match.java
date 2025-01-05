@@ -77,13 +77,25 @@ public class Match {
     }
 
     int currentBallStatus(){
-        int ballStatus = MatchUtils.randomNumberBetweenLtoR(-1,6);
+        int ballStatus = MatchUtils.randomNumberBetweenLtoR(0,6);
         return ballStatus;
     }
 
     void playInning(Team battingTeam){
         while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*numberOfOvers){
-            int currentBallStatus = currentBallStatus();
+            int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
+            int currentBallStatus;
+            //todo first add the functionlity to get the cuurent player
+            //todo second ccurrent player ke enum ka prob of out nikalna
+            //todo third uske corresponding per ball ka status track krna
+            //todo arraylist me put krna show tracking krke
+
+            if(randomProbability <= battingTeam.getIthPlayerProbOfOut(battingTeam.getNumberOfWicketsDown())){
+                currentBallStatus=-1;
+            }
+            else{
+                currentBallStatus = currentBallStatus();
+            }
             if(battingTeam.getNumberOfBallsPlayed()%6==0 )
                 System.out.println();
             if(battingTeam.getNumberOfBallsPlayed()==0 || battingTeam.getNumberOfBallsPlayed()%6==0 )
