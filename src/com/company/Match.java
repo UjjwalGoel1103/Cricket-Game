@@ -1,17 +1,17 @@
 package com.company;
 
 import com.company.enums.MatchType;
+import com.company.util.MatchUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static com.company.InputValidator.validateMatchType;
+import static com.company.validator.InputValidator.validateMatchType;
 
 public class Match {
     int numberOfOvers;
     Team team1 = new Team();
     Team team2 = new Team();
-    ScoreBoard scoreBoard = new ScoreBoard();
 
     Match(String teamName1, String teamName2){
         team1.setTeamName(teamName1);
@@ -38,9 +38,10 @@ public class Match {
     private void startMatch(){
         int winnerOfToss = performToss();
         performInningSchedule(winnerOfToss);
-
         //Scoreboard With different Functionalities
-
+        ScoreBoard scoreBoard = new ScoreBoard(team1, team2);
+        scoreBoard.showTeam1ScoreCard();
+        scoreBoard.showTeam2ScoreCard();
         scoreBoard.showFinalResult();
     }
 
@@ -55,64 +56,46 @@ public class Match {
         else{
             winnerChoice = 0;
         }
-        if(winnerOfToss==1 )
+        if( (winnerOfToss==1 && winnerChoice==1) || (winnerOfToss==0 && winnerChoice==0) )
         {
-            if(winnerChoice==1){
-                System.out.println("FIRST INNING START");
-                playInning(team1);
-                System.out.println();
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                System.out.println();
-
-                playInning(team2);
-            }
-            else{
-                System.out.println("FIRST INNING START");
-                playInning(team2);
-                System.out.println();
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                System.out.println();
-                playInning(team1);
-            }
+            System.out.println("\n" + "FIRST INNING START");
+            playInning(team1);
+            System.out.println("\n"+ "\n" + "SECOND INNING START"  );
+            playInning(team2);
         }
-        else
-        {
-            if(winnerChoice==1){
-                System.out.println("FIRST INNING START");
-                playInning(team2);
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                playInning(team1);
-            }
-            else{
-                System.out.println("FIRST INNING START");
-                playInning(team1);
-                System.out.println();
-                System.out.println("SECOND INNING START");
-                System.out.println();
-                playInning(team2);
-            }
+        else{
+            System.out.println("\n" + "FIRST INNING START");
+            playInning(team2);
+            System.out.println("\n" + "\n" + "SECOND INNING START"  );
+            playInning(team1);
         }
     }
 
     int performToss(){
-        int winnerOfToss = randomNumberBetweenLtoR(1,2);
+        int winnerOfToss = MatchUtils.randomNumberBetweenLtoR(1,2);
         return winnerOfToss;
     }
 
     int currentBallStatus(){
-        int ballStatus = randomNumberBetweenLtoR(-1,6);
+        int ballStatus = MatchUtils.randomNumberBetweenLtoR(0,6);
         return ballStatus;
     }
 
     void playInning(Team battingTeam){
         while (battingTeam.getNumberOfWicketsDown()<10 && battingTeam.getNumberOfBallsPlayed()<6*numberOfOvers){
-            int currentBallStatus = currentBallStatus();
+            int randomProbability=MatchUtils.randomNumberBetweenLtoR(1,10);
+            int currentBallStatus;
+            //todo first add the functionlity to get the cuurent player
+            //todo second ccurrent player ke enum ka prob of out nikalna
+            //todo third uske corresponding per ball ka status track krna
+            //todo arraylist me put krna show tracking krke
+
+            if(randomProbability <= battingTeam.getIthPlayerProbOfOut(battingTeam.getNumberOfWicketsDown())){
+                currentBallStatus=-1;
+            }
+            else{
+                currentBallStatus = currentBallStatus();
+            }
             if(battingTeam.getNumberOfBallsPlayed()%6==0 )
                 System.out.println();
             if(battingTeam.getNumberOfBallsPlayed()==0 || battingTeam.getNumberOfBallsPlayed()%6==0 )
@@ -129,13 +112,6 @@ public class Match {
         else{
             System.out.print(currentBallStatus+ " ");
         }
-    }
-
-    int randomNumberBetweenLtoR(int min, int max){
-        min--;
-        max++;
-        int randomNumber = (int)(Math.random()*(max-min)+min);
-        return randomNumber;
     }
 }
 
